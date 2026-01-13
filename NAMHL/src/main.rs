@@ -1,4 +1,4 @@
-use std::collections::hash_map::HashMap;
+use std::collections::hash_map::{self, HashMap};
 use std::io::{self, Read, stdin};
 use std::path::{Path, PathBuf};
 use std::fs::{read, read_dir}; use clap::builder::OsStr;
@@ -25,48 +25,50 @@ fn main() {
         game_path = PathBuf::from(new_path);
     }
 
+
+
     // CHECKING IF BASE MODDING FILES ARE INSTALLED
-    // let game_files = read_dir(game_path)
-    //     .expect("Failed to read contents of game's directory");
-    // let mut base_modding_files_needed: Vec<(bool, &Path)> = vec!(
-    //     (true, Path::new("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata.exe")),
-    //     (true, Path::new("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/d3d11.dll"))
-    // );
-
-    // for entry in game_files {
-    //     let entry_path = entry.expect("Couldn't read one of the files").path();
-    //     for (i, file) in &mut base_modding_files_needed {
-    //         if entry_path == *file {
-    //             *i = false;
-    //         }
-    //     } 
-    // }
-
-
     let game_files = read_dir(game_path)
         .expect("Failed to read contents of game's directory");
-    let mut base_modding_files_needed: HashMap<PathBuf, bool> = HashMap::from(
+    let mut base_modding_files_needed = HashMap::from([
         (PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata.exe"), true),
         (PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/d3d11.dll"), true)
-    );
+    ]);
 
     for entry in game_files {
         let entry_path = entry.expect("Couldn't read one of the files").path();
-        for (i, file) in &mut base_modding_files_needed {
-            if entry_path == *file {
-                *i = false;
+        if base_modding_files_needed.contains_key(&entry_path) {
+            base_modding_files_needed.entry(entry_path)
+                .and_modify(|val| *val = !*val);
+        }
+    }
+
+    // PRINT RESULT OF CHECK FOR BASE MODDING FILES
+    let modding_files_present = base_modding_files_needed.values().all(|&val| val == false);
+    match modding_files_present {
+        true => println!("Base modding files already installed. That's good"),
+        false => { 
+            println!("Base modding files are missing, you need to install them if you want to mod the game");
+            println!("Start installation of required modding files? [Y/n]");
+            let mut answer = String::new();
+            match stdin().read_line(&mut answer) {
+                Ok(_) => {
+                    if answer == "Y" || answer == "" { run_auto_install_script(); }
+                }
+                Err(er) => eprintln!("Couldn't read answer, {er}")
             }
-        } 
+        }
     }
 
 
-    // SHOULD CHECK IF THERE IS A GAME INSTALLATION IN THE DEFAULT STEAM PATH
-    // ASK FOR PATH IF THERE ISN'T
 
-    // CHECK IN THAT PATH IF BASE MOD FILES HAVE ALREADY BEEN INSTALLED 
-    // IF THEY AREN'T ASK IF THE USER WANTS TO INSTALL THEM
+    /* ---------------------- */
+    /* RUNNING INSTALL SCRIPT */
+    /* ---------------------- */
+    
+    fn run_auto_install_script() {
 
-
+    }
 
 
 
