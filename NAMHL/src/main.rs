@@ -1,7 +1,8 @@
-use std;
-use std::io::{self, stdin};
-use std::path::Path;
-use std::fs; // Will be used for checking files in mod zip file
+use std::collections::hash_map::HashMap;
+use std::io::{self, Read, stdin};
+use std::path::{Path, PathBuf};
+use std::fs::{read, read_dir}; use clap::builder::OsStr;
+// Will be used for checking files in mod zip file
 use clap::{Arg, ArgAction}; // Will be used to add arguments 
 use clap::Parser; // Used for getting the argument of the folder path
 
@@ -10,11 +11,54 @@ use clap::Parser; // Used for getting the argument of the folder path
 fn main() {
     println!("WELCOME TO THE NIER AUTOMATA MOD HELPER for LINUX (NAMHL)");
 
-    let base_game_path = Path::new("$HOME/.local/share/Steam/steamapps/common/NieRAutomata");
-    if !base_game_path.exists() {
+    //CHECKING FOR GAME PATH
+    let mut game_path = PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata");
+    if !game_path.exists() {
         println!("Game installation not found at: $HOME/.local/share/Steam/steamapps/common/NieRAutomata");
         print!("Insert your game path: ");
+
+        let mut new_path = String::new();
+        stdin()
+            .read_line(&mut new_path)
+            .expect("Failed to read input");
+
+        game_path = PathBuf::from(new_path);
     }
+
+    // CHECKING IF BASE MODDING FILES ARE INSTALLED
+    // let game_files = read_dir(game_path)
+    //     .expect("Failed to read contents of game's directory");
+    // let mut base_modding_files_needed: Vec<(bool, &Path)> = vec!(
+    //     (true, Path::new("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata.exe")),
+    //     (true, Path::new("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/d3d11.dll"))
+    // );
+
+    // for entry in game_files {
+    //     let entry_path = entry.expect("Couldn't read one of the files").path();
+    //     for (i, file) in &mut base_modding_files_needed {
+    //         if entry_path == *file {
+    //             *i = false;
+    //         }
+    //     } 
+    // }
+
+
+    let game_files = read_dir(game_path)
+        .expect("Failed to read contents of game's directory");
+    let mut base_modding_files_needed: HashMap<PathBuf, bool> = HashMap::from(
+        (PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata.exe"), true),
+        (PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/d3d11.dll"), true)
+    );
+
+    for entry in game_files {
+        let entry_path = entry.expect("Couldn't read one of the files").path();
+        for (i, file) in &mut base_modding_files_needed {
+            if entry_path == *file {
+                *i = false;
+            }
+        } 
+    }
+
 
     // SHOULD CHECK IF THERE IS A GAME INSTALLATION IN THE DEFAULT STEAM PATH
     // ASK FOR PATH IF THERE ISN'T
@@ -43,7 +87,7 @@ fn main() {
         print!("\nInsert a number");
 
         // GETTING THE USER'S ACTION'S ID
-        io::stdin()
+        stdin()
             .read_line(&mut action_id)
             .expect("Failed to read input");
 
