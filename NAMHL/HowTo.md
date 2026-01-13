@@ -10,8 +10,15 @@
   - For models mods: put in the respective sub-data folder
   - For textures mods: put in the SK_Res/textures/inject folder
   - For reshade presets: NEED TO UNDERSTAND HOW TO INSTALL RESHADE
-  - Should provide auto installation for LodMod, Reshade, Bande-Desineé and NAIOM
+
+### SPECIAL MOD INSTALLATION
+Should provide automatic installation for reshade, LodMod, Bande-Desineé and other mods that require dll injecting
 
 ### Mod Uninstallation
 - Receive a mod name
-- Check
+- Check if that name is in the list
+- If it is, get a list of all the files of that mod and remove them from the game's directory
+
+### Print a list of mods
+- Get a list of mods filtered by type form the list
+- Print them in the terminal

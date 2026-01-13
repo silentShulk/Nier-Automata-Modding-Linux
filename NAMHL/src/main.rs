@@ -1,7 +1,7 @@
 use std;
-use std::io;
+use std::io::{self, stdin};
 use std::path::Path;
-use std::fs;
+use std::fs; // Will be used for checking files in mod zip file
 use clap::{Arg, ArgAction}; // Will be used to add arguments 
 use clap::Parser; // Used for getting the argument of the folder path
 
@@ -9,6 +9,20 @@ use clap::Parser; // Used for getting the argument of the folder path
 
 fn main() {
     println!("WELCOME TO THE NIER AUTOMATA MOD HELPER for LINUX (NAMHL)");
+
+    let base_game_path = Path::new("$HOME/.local/share/Steam/steamapps/common/NieRAutomata");
+    if !base_game_path.exists() {
+        println!("Game installation not found at: $HOME/.local/share/Steam/steamapps/common/NieRAutomata");
+        print!("Insert your game path: ");
+    }
+
+    // SHOULD CHECK IF THERE IS A GAME INSTALLATION IN THE DEFAULT STEAM PATH
+    // ASK FOR PATH IF THERE ISN'T
+
+    // CHECK IN THAT PATH IF BASE MOD FILES HAVE ALREADY BEEN INSTALLED 
+    // IF THEY AREN'T ASK IF THE USER WANTS TO INSTALL THEM
+
+
 
 
 
@@ -26,7 +40,7 @@ fn main() {
                     \t2 - Uninstall a mod (you have to type the name of the mod)
                     \t3 - Read 2B's monologue (first line of the game)
                     \t0 - Close the NAMHL");
-        println!("\nInsert a number");
+        print!("\nInsert a number");
 
         // GETTING THE USER'S ACTION'S ID
         io::stdin()
@@ -34,7 +48,7 @@ fn main() {
             .expect("Failed to read input");
 
 
-            
+
         // STARTING ONE OF THE FEATURES
         match action_id.trim() {
             "1" => install_mod(),
