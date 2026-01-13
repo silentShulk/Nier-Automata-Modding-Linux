@@ -1,0 +1,1 @@
+C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\NAMHL\target\debug\NAMHL.exe: C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\NAMHL\src\main.rs

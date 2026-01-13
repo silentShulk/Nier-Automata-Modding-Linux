@@ -10,6 +10,8 @@
 #Install 32 bit
 ./bin/VC_redist.x86.exe
 
+
+
 # ---------------------------- #
 #   Preparing game directory   #
 # ---------------------------- #
@@ -28,6 +30,8 @@ if [ ! -d "$game_dir" ]; then
   exit 1
 fi
 
+
+
 # -------------------------------- #
 #   CHANGING THE GAME EXECUTABLE   #
 # -------------------------------- #
@@ -38,12 +42,16 @@ mv "$game_dir/NieRAutomata.exe" "$game_dir/NieRAutomata(original).exe"
 # Put the WolfLimitBreaker exe in the game directory
 cp ./bin/NieRAutomata.exe "$game_dir"
 
+
+
 # ------------- #
 #   SPECIAL K   #
 # ------------- #
 
 # Put the dll in the games's directory
 cp ./lib/d3d11.dll "$game_dir"
+
+
 
 # --------------- #
 #   LAUNCH GAME   #
