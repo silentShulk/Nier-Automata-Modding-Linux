@@ -1,1 +1,1 @@
-/home/cmarco/RustProjects/Nier-Automata-Modding-Linux/NAMHL/target/debug/NAMHL: /home/cmarco/RustProjects/Nier-Automata-Modding-Linux/NAMHL/src/main.rs
+C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\NAMHL\target\debug\NAMHL.exe: C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\NAMHL\src\features.rs C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\NAMHL\src\main.rs
