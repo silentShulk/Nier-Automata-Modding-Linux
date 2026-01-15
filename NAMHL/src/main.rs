@@ -7,10 +7,10 @@ use std::process::Command;
 use clap::{Arg, ArgAction}; // Will be used to add arguments 
 use clap::Parser;
 
-use crate::features::{install_mod, monologue, uninstall_mod}; // Used for getting the argument of the folder path
 mod features;
+use crate::features::{install_mod, monologue, uninstall_mod};
 
-
+mod installation_methods;
 
 fn main() {
     println!("WELCOME TO THE NIER AUTOMATA MOD HELPER for LINUX (NAMHL)");
@@ -94,7 +94,7 @@ fn check_for_required_modding_files(game_path: &PathBuf) {
     }
 }
 
-// IF MODDING FILES AREN'T PRESENT WARN THE USER
+// IF MODDING FILES AREN'T PRESENT, WARN THE USER
 fn missing_files_warning() {
     println!("Required modding files are missing, you need to install them if you want to mod the game");
     println!("Start installation of required modding files? [Y/n]");
@@ -107,7 +107,7 @@ fn missing_files_warning() {
     }
 }
 
-// RUNNING INSTALL SCRIPT
+// IF THE USER WANTS TO, INSTALL THE FILES
 fn run_auto_install_script() {
     let exe_path = env::args_os().next()
         .expect("Couldn't locate program's path");
@@ -148,8 +148,6 @@ fn ask_user_action() {
         stdin()
             .read_line(&mut action_id)
             .expect("Failed to read input");
-
-
 
         // Starting one of the features
         match action_id.trim() {
