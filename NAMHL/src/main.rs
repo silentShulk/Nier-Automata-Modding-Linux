@@ -4,13 +4,13 @@ use std::io::stdin;
 use std::path::PathBuf;
 use std::fs::read_dir;
 use std::process::Command;
-use clap::{Arg, ArgAction}; // Will be used to add arguments 
+//use clap::{Arg, ArgAction}; // Will be used to add arguments 
 use clap::Parser;
 
-mod features;
-use crate::features::{install_mod, monologue, uninstall_mod};
+mod mod_managing;
+use crate::mod_managing::features::*;
 
-mod installation_methods;
+
 
 fn main() {
     println!("WELCOME TO THE NIER AUTOMATA MOD HELPER for LINUX (NAMHL)");
@@ -35,7 +35,12 @@ fn main() {
     /*   USER INTERACTION   */
     /* -------------------- */
 
-    ask_user_action();
+    let mut action_id = String::from("");
+
+    while  {
+        ask_user_action(&mut action_id);
+    }
+
 }
 
 
@@ -131,9 +136,7 @@ fn run_auto_install_script() {
 /*   USER ACTION CHOICE   */
 /* ---------------------- */
 
-fn ask_user_action() {
-    let mut action_id = String::from("");
-
+fn ask_user_action(action_id: &mut String) {
     while action_id != "0" {
         action_id = String::from("");
         // Asking what the user wants to do 
