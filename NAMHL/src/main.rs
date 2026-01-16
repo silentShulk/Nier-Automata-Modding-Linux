@@ -37,7 +37,7 @@ fn main() {
 
     let mut action_id = String::from("");
 
-    while  {
+    while action_id != "0" {
         ask_user_action(&mut action_id);
     }
 
@@ -137,30 +137,40 @@ fn run_auto_install_script() {
 /* ---------------------- */
 
 fn ask_user_action(action_id: &mut String) {
-    while action_id != "0" {
-        action_id = String::from("");
-        // Asking what the user wants to do 
-        println!("What do you want to do?\n
-                    \t1 - Install a mod (you have to provide a zip folder of the mod)
-                    \t2 - Uninstall a mod (you have to type the name of the mod)
-                    \t3 - Read 2B's monologue (first line of the game)
-                    \t0 - Close the NAMHL");
-        println!("\nInsert a number");
+    // Asking what the user wants to do 
+    println!("What do you want to do?\n
+                \t1 - Install a mod (you have to provide a zip folder of the mod)
+                \t2 - Uninstall a mod (you have to type the name of the mod)
+                \t3 - Read 2B's monologue (first line of the game)
+                \t0 - Close the NAMHL");
+    println!("\nInsert a number");
 
-        // Getting the user's action's id
-        stdin()
-            .read_line(&mut action_id)
-            .expect("Failed to read input");
+    // Getting the user's action's id
+    stdin()
+        .read_line(action_id)
+        .expect("Failed to read answer");
 
-        // Starting one of the features
-        match action_id.trim() {
-            "1" => install_mod(),
-            "2" => uninstall_mod(),
-            "3" => monologue(),
-            "0" => println!("Happy Automata"),
-            _ => println!("{action_id} is not an action id (input either 1, 2 or 3)"),
-        }
+    // Starting one of the features
+    match action_id.trim() {
+        "1" => install_mod(),
+        "2" => uninstall_mod(),
+        "3" => monologue(),
+        "0" => println!("Happy Automata"),
+        _ => println!("{action_id} is not an action id (input either 1, 2, 3 or 0)"),
     }
+}
+
+
+
+/* ------------------ */
+/*   2B'S MONOLOGUE   */
+/* ------------------ */
+
+pub fn monologue() {
+    println!("\nEverything that lives is designed to end,\n
+            we're perpetually trapped... In a never ending cycle of life and death.\n
+            I often think about the god who blessed us with this cryptic puzzle,\n
+            and wonder if we'll ever have the chance to kill him\n");
 }
 
 

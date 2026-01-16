@@ -1,25 +1,26 @@
-//use std;
+//use std
+use std::path::PathBuf;
 
-pub fn install_texture() {
-
-}
-
-pub fn install_player_model() {
+pub fn install_texture(dss_folder_path: PathBuf) {
 
 }
 
-pub fn install_weapon_model() {
+pub fn install_player_model(dtt_dat_folder_path: PathBuf) {
 
 }
 
-pub fn install_world_model() {
+pub fn install_weapon_model(dtt_dat_folder_path: PathBuf) {
 
 }
 
-pub fn install_cutscene_replacements() {
+pub fn install_world_model(dtt_dat_folder_path: PathBuf) {
 
 }
 
-pub fn install_reshade_preset() {
+pub fn install_cutscene_replacements(usm_folder_path: PathBuf) {
+
+}
+
+pub fn install_reshade_preset(preset_folder_path: PathBuf) {
 
 }
