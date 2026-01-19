@@ -6,17 +6,7 @@ use std::io::{Error, stdin};
 use walkdir::WalkDir;
 
 use super::installation_methods::*;
-
-
-
-enum ModType {
-    Textures,
-    PlayerModels,
-    WeaponModels,
-    WorldModels,
-    CutsceneReplacements,
-    ReshadePreset
-}
+use crate::ModType;
 
 
 
