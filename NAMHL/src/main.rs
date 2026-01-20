@@ -1,19 +1,18 @@
+use std::collections::hash_map::HashMap;
 use std::env;
-use std::fs::read_dir;
 use std::fs::File;
-use std::io::BufReader;
-use std::io::stdin;
+use std::fs::read_dir;
+use std::io::Write;
+use std::io::{BufReader, stdin, stdout};
 use std::path::PathBuf;
 use std::process::Command;
-use std::{collections::hash_map::HashMap};
+use std::error::Error;
 //use clap::{Arg, ArgAction}; // Will be used to add arguments
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 
 mod mod_managing;
 use crate::mod_managing::features::*;
-
-
 
 // Path for the json file containing data on game's path and installed mods
 const DATA_FILE_PATH: &str = "~/.config/NAHML/data.json";
@@ -26,7 +25,7 @@ pub enum ModType {
     WeaponModels,
     WorldModels,
     CutsceneReplacements,
-    ReshadePreset
+    ReshadePreset,
 }
 
 // Things to take note about a mod for both mod managing and informing the user
@@ -36,6 +35,16 @@ struct Mod {
     files: Vec<PathBuf>,
     enabled: bool,
     mod_type: ModType,
+}
+impl Mod {
+    fn new(name: String, files: Vec<PathBuf>, enabled: bool, mod_type: ModType) -> Self {
+        Self {
+            name,
+            files,
+            enabled,
+            mod_type,
+        }
+    }
 }
 
 // What to save in the data file
@@ -47,14 +56,14 @@ struct Config {
 impl Config {
     // Save the config to file
     fn save_config(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let data_file = File::create(DATA_FILE_PATH).expect("Failed to open data file (~/.config/NAMHL/data.json)");
+        let data_file = File::create(DATA_FILE_PATH)?;
         serde_json::to_writer_pretty(data_file, self)?;
         Ok(())
     }
 
     // Load the config from file
-    fn load_config() -> Option<Result<Self, Box<dyn std::error::Error>>> 
-    // Returns Some if the file exists, None if it doesn't
+    fn load_config() -> Option<Result<Self, Box<dyn Error>>>
+// Returns Some if the file exists, None if it doesn't
     // If the file exists it, the Some can contain
     // Ok(config), Err(error generated while trying to access the file)
     {
@@ -66,24 +75,24 @@ impl Config {
                     let contents = serde_json::from_reader(reader);
                     match contents {
                         Ok(config) => Some(Ok(config)),
-                        Err(er) => return Some(Err(Box::new(er)))
+                        Err(er) => Some(Err(Box::new(er))),
                     }
                 }
-                Err(er) => return Some(Err(Box::new(er)))
+                Err(er) => return Some(Err(Box::new(er))),
             }
-        }
-        else {
+        } else {
             None
         }
     }
 }
 impl Default for Config {
     fn default() -> Self {
-        Self { game_path: PathBuf::from("~/.local/share/Steam/steamapps/common/NieRAutomata"), mods: Default::default() }
+        Self {
+            game_path: PathBuf::from("~/.local/share/Steam/steamapps/common/NieRAutomata"),
+            mods: Default::default(),
+        }
     }
 }
-
-
 
 fn main() {
     println!("WELCOME TO THE NIER AUTOMATA MOD HELPER for LINUX (NAMHL)");
@@ -95,75 +104,87 @@ fn main() {
     // LOAD DATA IF PRESENT
     let mut current_config = Config::load_config().unwrap_or_else(|| {
         println!("No data file found (maybe it's the first time you use this program?), defaulting to default game path...");
-        Ok(Config::default()) 
+        Ok(Config::default())
     }).expect("Failed to load config file (~/.config/NAHML/data.json)");
 
     // CHECKING GAME PATH LOCATION
     if !current_config.game_path.exists() {
-        correct_gamepath(&mut current_config.game_path);
+        ask_for_correct_gamepath(&mut current_config.game_path);
     } else {
         println!("Game installation found at {:?}", current_config.game_path)
     }
 
     // CHECKING IF REQUIRED MODDING FILES ARE INSTALLED
-    check_for_required_modding_files(&current_config.game_path);
+    if !check_for_required_modding_files(&current_config.game_path) {
+        return
+    }
 
     /* -------------------- */
     /*   USER INTERACTION   */
     /* -------------------- */
 
     let mut action_id = String::from("");
-
     while action_id != "0" {
         ask_user_action(&mut action_id);
+
+        // Starting one of the features
+        if action_id == "1" {
+        	install_mod(&current_config.game_path);
+        }
+        else if action_id == "2" {
+        	uninstall_mod(&current_config.game_path);
+        } 
+        else if action_id == "0" {
+            println!("Happy Automata");
+            action_id = String::from("0");
+        }
+        else {
+            println!("{} is not an action id (input either 1, 2, 3 or 0)", action_id);
+        }
     }
 }
-
-
 
 /* ---------- */
 /*   CHECKS   */
 /* ---------- */
 
 // CHECKING GAME PATH LOCATION
-fn correct_gamepath(game_path: &mut PathBuf) {
+fn ask_for_correct_gamepath(game_path: &mut PathBuf,) -> Result<PathBuf, Box<dyn Error>> {
     println!(
         "Game installation not found at: $HOME/.local/share/Steam/steamapps/common/NieRAutomata"
     );
     println!("Insert your game path: ");
 
     let mut new_path = String::new();
-    stdin()
-        .read_line(&mut new_path)
-        .expect("Failed to read input");
+    stdin().read_line(&mut new_path)?;
 
-    *game_path = PathBuf::from(new_path);
+    Ok(PathBuf::from(new_path.trim()))
 }
 
 // CHECKING IF REQUIRED MODDING FILES ARE ALREADY PRESENT
-fn check_for_required_modding_files(game_path: &PathBuf) {
+fn check_for_required_modding_files(game_path: &PathBuf)-> bool {
     let game_files = read_dir(game_path) // Get the files in the game's directory
         .expect("Failed to read contents of game's directory");
 
     // List of required modding files
     let mut required_modding_files_needed = HashMap::from([
         (
-            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata(original).exe",),    // Original NieRAutomata exe with name changed according to my standards
-            true,
-        ), 
-        (
-            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata.exe",),      // Modded game exe, both original and modded need to be present
+            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata(original).exe",), // Original NieRAutomata exe with name changed according to my standards
             true,
         ),
         (
-            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/d3d11.dll"),      // SpecialK dll
+            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata.exe",), // Modded game exe, both original and modded need to be present
             true,
-        ), 
+        ),
+        (
+            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/d3d11.dll"), // SpecialK dll
+            true,
+        ),
     ]);
 
     // Check which files are present in the game's directory
     for entry in game_files {
-        let entry_path = entry.expect("Couldn't read one of the files").path();
+        let entry_path = entry.expect("Couldn't read one of the game's files").path();
         if required_modding_files_needed.contains_key(&entry_path) {
             required_modding_files_needed
                 .entry(entry_path)
@@ -175,33 +196,41 @@ fn check_for_required_modding_files(game_path: &PathBuf) {
         .values()
         .all(|&val| val == false);
     match modding_files_present {
-        true => println!("Required modding files already installed. That's good"), // If files are already installed
-        false => missing_files_warning(),
+        true => {
+            println!("Required modding files already installed. That's good"); // If files are already installed
+            true
+        }
+        false => {
+            missing_files_warning()
+        }
     }
 }
 
 // IF MODDING FILES AREN'T PRESENT, WARN THE USER
-fn missing_files_warning() {
+fn missing_files_warning() -> bool {
     println!(
         "Required modding files are missing, you need to install them if you want to mod the game"
     );
-    println!("Start installation of required modding files? [Y/n]");
+    print!("Start installation of required modding files? [Y/n]");
+    stdout().flush().expect("Couldn't flush stdout");
+
     let mut answer = String::new();
-    match stdin().read_line(&mut answer) {
-        Ok(_) => {
-            if answer == "Y" || answer == "" {
-                run_auto_install_script();
-            } // Running the script to install the required modding files
-        }
-        Err(er) => eprintln!("Couldn't read answer, {er}"),
+    stdin().read_line(&mut answer).expect("Couldn't read input");
+    
+    if answer.trim() == "Y" || answer.trim() == "y"  || answer.trim() == "" {
+        run_auto_install_script();
+        true
+    } else {
+        println!("Can't continue without the required modding files");
+        false
     }
 }
 
 // IF THE USER WANTS TO, INSTALL THE FILES
-fn run_auto_install_script() {
+fn run_auto_install_script() -> Result<(), Box<dyn Error>> {
     let exe_path = env::args_os()
         .next()
-        .expect("Couldn't locate program's path");
+        .ok_or("Couldn't locate program's path")?;
     let mut script_path = PathBuf::from(exe_path);
     script_path.pop();
     script_path.push("install_prerequisites.sh");
@@ -230,15 +259,10 @@ fn ask_user_action(action_id: &mut String) {
 
     // Getting the user's action's id
     stdin().read_line(action_id).expect("Failed to read answer");
-
-    // Starting one of the features
-    match action_id.trim() {
-        "1" => install_mod(),
-        "2" => uninstall_mod(),
-        "0" => println!("Happy Automata"),
-        _ => println!("{action_id} is not an action id (input either 1, 2, 3 or 0)"),
-    }
 }
+
+
+
 
 
 

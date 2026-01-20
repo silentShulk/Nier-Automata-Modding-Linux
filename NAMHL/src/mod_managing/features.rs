@@ -1,12 +1,12 @@
-use std;
+use std::{self, io::Write};
 use std::fs::File;
 use std::path::PathBuf;
 use zip::ZipArchive;
-use std::io::{Error, stdin};
+use std::io::{Error, stdin, stdout};
 use walkdir::WalkDir;
 
 use super::installation_methods::*;
-use crate::ModType;
+use crate::*;
 
 
 
@@ -14,31 +14,30 @@ use crate::ModType;
 /*   MOD INSTALLATION   */
 /* -------------------- */
 
-pub fn install_mod() {
+pub fn install_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Error>> {
     println!("To install a mod type the path to the compressed folder of a mod you downloaded\n\
             IT HAS TO BE A COMPRESSED FOLDER (.zip, .7z, .rar)");
-    println!("Insert path >>");
+    print!("Insert path >> ");
+    stdout().flush();
     
     let mut answer = String::new();
-    match stdin().read_line(&mut answer) {
-        Ok(_) =>  { 
-            let answered_path = PathBuf::from(answer);
-            if answered_path.exists() {
-                let mod_type = check_mod_type(&answered_path);
-                match mod_type {
-                    Some((mod_type, mod_folder_path)) => {
-                        follow_installation_method(mod_type, mod_folder_path);
-                    }
-                    None => {
-                        println!("The given path doesn't contain a valid mod");
-                    }
-                }                
-            } 
-            else {
-                println!("The given path doesn't exist")
-            }
-        },
-        Err(er) => eprintln!("Couldn't read path, {}", er)
+    stdin().read_line(&mut answer);
+    let answered_path = PathBuf::from(answer.trim());
+    
+    if answered_path.exists() {
+        let (mod_type, mod_files_path) = check_mod_type(answered_path)
+        	.ok_or("The given path doesn't contain a mod")?;
+        match mod_type {
+           	ModType::Textures =>  install_texture(mod_files_path, game_path),
+           	ModType::PlayerModels => install_player_model(mod_files_path),
+           	ModType::WeaponModels => install_weapon_model(mod_files_path),
+           	ModType::WorldModels => install_world_model(mod_files_path),
+            ModType::CutsceneReplacements => install_cutscene_replacements(mod_files_path),
+            ModType::ReshadePreset => install_reshade_preset(mod_files_path)
+        }
+    } 
+    else {
+        Err("Mod path does not exist".into())
     }
 }
 
@@ -48,8 +47,8 @@ pub fn install_mod() {
 /*   MOD UNINSTALLATION   */
 /* ---------------------- */
 
-pub fn uninstall_mod() {
-
+pub fn uninstall_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Error>> {
+	Ok(Mod::new(String::from("Texture"), vec![], true, ModType::Textures))
 }
 
 
@@ -58,8 +57,8 @@ pub fn uninstall_mod() {
 /*   MOD TYPE RECOGNITION   */
 /* ------------------------ */
 
-fn check_mod_type(zip_path: &PathBuf) -> Option<(ModType, PathBuf)> {
-    let mod_folder_path = unzip_folder(zip_path).expect("Couldn't extract compressed folder");
+fn check_mod_type(zip_path: PathBuf) -> Option<(ModType, PathBuf)> {
+    let mod_folder_path = unzip_folder(&zip_path).expect("Couldn't extract compressed folder");
     
     for entry in WalkDir::new(&mod_folder_path) {
         let current_entry = entry.expect("Couldn't read one of the files/folders");
@@ -93,15 +92,4 @@ fn unzip_folder(zipped_mod_folder: &PathBuf) -> Result<PathBuf, Error> {
     
     mod_zip_archive.extract(&extraction_target_folder).expect("Error while extracting mod archive");
     Ok(extraction_target_folder)
-}
-
-fn follow_installation_method(mod_type: ModType, mod_files_path: PathBuf) {
-    match mod_type {
-        ModType::Textures => install_texture(mod_files_path),
-        ModType::PlayerModels => install_player_model(mod_files_path),
-        ModType::WeaponModels => install_weapon_model(mod_files_path),
-        ModType::WorldModels => install_world_model(mod_files_path),
-        ModType::CutsceneReplacements => install_cutscene_replacements(mod_files_path),
-        ModType::ReshadePreset => install_reshade_preset(mod_files_path)
-    }
 }
