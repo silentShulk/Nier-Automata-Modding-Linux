@@ -1,9 +1,11 @@
 use std::env;
 use std::fs::read_dir;
+use std::fs::File;
+use std::io::BufReader;
 use std::io::stdin;
 use std::path::PathBuf;
 use std::process::Command;
-use std::{collections::hash_map::HashMap, string};
+use std::{collections::hash_map::HashMap};
 //use clap::{Arg, ArgAction}; // Will be used to add arguments
 use clap::Parser;
 use serde::{Deserialize, Serialize};
@@ -12,6 +14,8 @@ mod mod_managing;
 use crate::mod_managing::features::*;
 
 
+
+const DATA_FILE_PATH: &str = "~/.config/NAHML/data.json";
 
 // STRUCTS FOR MOD MANAGEMENT
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -34,11 +38,43 @@ struct Mod {
 
 #[derive(Serialize, Deserialize)]
 struct Config {
-    game_path: String,
+    game_path: PathBuf,
     mods: Vec<Mod>,
 }
+impl Config {
+    // Save the entire config to a file
+    fn save_config(&self) -> Result<(), Box<dyn std::error::Error>> {
+        let data_file = File::create(DATA_FILE_PATH).expect("Failed to open data file (~/.config/NAMHL/data.json)");
+        serde_json::to_writer_pretty(data_file, self)?;
+        Ok(())
+    }
 
-
+    // Load the entire config from a file
+    fn load_config() -> Option<Result<Self, Box<dyn std::error::Error>>> { // Returns Some containing the result of trying to read the file, else Returns None
+        if PathBuf::from(DATA_FILE_PATH).exists() {
+            let data_file = File::open(DATA_FILE_PATH);
+            match data_file {
+                Ok(data) => {
+                    let reader = BufReader::new(data);
+                    let contents = serde_json::from_reader(reader);
+                    match contents {
+                        Ok(config) => Some(Ok(config)),
+                        Err(er) => return Some(Err(Box::new(er)))
+                    }
+                }
+                Err(er) => return Some(Err(Box::new(er)))
+            }
+        }
+        else {
+            None
+        }
+    }
+}
+impl Default for Config {
+    fn default() -> Self {
+        Self { game_path: PathBuf::from("~/.local/share/Steam/steamapps/common/NieRAutomata"), mods: Default::default() }
+    }
+}
 
 fn main() {
     println!("WELCOME TO THE NIER AUTOMATA MOD HELPER for LINUX (NAMHL)");
@@ -47,7 +83,11 @@ fn main() {
     /*   STARTING CHECKS   */
     /* ------------------- */
 
-    let mut game_path = PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata"); // Assume default game path
+    // LOAD DATA IF PRESENT
+    let current_config = Config::load_config().unwrap_or_else(|| {
+        println!("No data file found (maybe it's the first time you use this program?), defaulting to default game path...");
+        Ok(Config::default()) 
+    }).expect("Failed to load config file (~/.config/NAHML/data.json)");
 
     // CHECKING GAME PATH LOCATION
     check_gamepath(&mut game_path);
