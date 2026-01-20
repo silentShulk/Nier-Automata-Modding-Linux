@@ -1,0 +1,7 @@
+/home/cmarco/Nier-Automata-Modding-Linux/ATA/target/debug/deps/num_conv-847bf82f57e2e900.d: /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-conv-0.1.0/src/lib.rs
+
+/home/cmarco/Nier-Automata-Modding-Linux/ATA/target/debug/deps/libnum_conv-847bf82f57e2e900.rlib: /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-conv-0.1.0/src/lib.rs
+
+/home/cmarco/Nier-Automata-Modding-Linux/ATA/target/debug/deps/libnum_conv-847bf82f57e2e900.rmeta: /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-conv-0.1.0/src/lib.rs
+
+/home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-conv-0.1.0/src/lib.rs:

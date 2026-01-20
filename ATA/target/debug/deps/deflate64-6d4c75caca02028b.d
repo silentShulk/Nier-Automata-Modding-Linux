@@ -1,0 +1,11 @@
+/home/cmarco/Nier-Automata-Modding-Linux/NAMHL/target/debug/deps/deflate64-6d4c75caca02028b.d: /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/lib.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/buffer.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/huffman_tree.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/inflater_managed.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/input_buffer.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/output_window.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/stream.rs
+
+/home/cmarco/Nier-Automata-Modding-Linux/NAMHL/target/debug/deps/libdeflate64-6d4c75caca02028b.rmeta: /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/lib.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/buffer.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/huffman_tree.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/inflater_managed.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/input_buffer.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/output_window.rs /home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/stream.rs
+
+/home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/lib.rs:
+/home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/buffer.rs:
+/home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/huffman_tree.rs:
+/home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/inflater_managed.rs:
+/home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/input_buffer.rs:
+/home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/output_window.rs:
+/home/cmarco/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/deflate64-0.1.10/src/stream.rs:
