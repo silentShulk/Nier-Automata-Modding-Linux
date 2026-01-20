@@ -15,9 +15,10 @@ use crate::mod_managing::features::*;
 
 
 
+// Path for the json file containing data on game's path and installed mods
 const DATA_FILE_PATH: &str = "~/.config/NAHML/data.json";
 
-// STRUCTS FOR MOD MANAGEMENT
+// The various types of mod that can be installed with ATA
 #[derive(serde::Serialize, serde::Deserialize)]
 pub enum ModType {
     Textures,
@@ -28,6 +29,7 @@ pub enum ModType {
     ReshadePreset
 }
 
+// Things to take note about a mod for both mod managing and informing the user
 #[derive(Serialize, Deserialize)]
 struct Mod {
     name: String,
@@ -36,21 +38,26 @@ struct Mod {
     mod_type: ModType,
 }
 
+// What to save in the data file
 #[derive(Serialize, Deserialize)]
 struct Config {
     game_path: PathBuf,
     mods: Vec<Mod>,
 }
 impl Config {
-    // Save the entire config to a file
+    // Save the config to file
     fn save_config(&self) -> Result<(), Box<dyn std::error::Error>> {
         let data_file = File::create(DATA_FILE_PATH).expect("Failed to open data file (~/.config/NAMHL/data.json)");
         serde_json::to_writer_pretty(data_file, self)?;
         Ok(())
     }
 
-    // Load the entire config from a file
-    fn load_config() -> Option<Result<Self, Box<dyn std::error::Error>>> { // Returns Some containing the result of trying to read the file, else Returns None
+    // Load the config from file
+    fn load_config() -> Option<Result<Self, Box<dyn std::error::Error>>> 
+    // Returns Some if the file exists, None if it doesn't
+    // If the file exists it, the Some can contain
+    // Ok(config), Err(error generated while trying to access the file)
+    {
         if PathBuf::from(DATA_FILE_PATH).exists() {
             let data_file = File::open(DATA_FILE_PATH);
             match data_file {
@@ -76,6 +83,8 @@ impl Default for Config {
     }
 }
 
+
+
 fn main() {
     println!("WELCOME TO THE NIER AUTOMATA MOD HELPER for LINUX (NAMHL)");
 
@@ -84,16 +93,20 @@ fn main() {
     /* ------------------- */
 
     // LOAD DATA IF PRESENT
-    let current_config = Config::load_config().unwrap_or_else(|| {
+    let mut current_config = Config::load_config().unwrap_or_else(|| {
         println!("No data file found (maybe it's the first time you use this program?), defaulting to default game path...");
         Ok(Config::default()) 
     }).expect("Failed to load config file (~/.config/NAHML/data.json)");
 
     // CHECKING GAME PATH LOCATION
-    check_gamepath(&mut game_path);
+    if !current_config.game_path.exists() {
+        correct_gamepath(&mut current_config.game_path);
+    } else {
+        println!("Game installation found at {:?}", current_config.game_path)
+    }
 
     // CHECKING IF REQUIRED MODDING FILES ARE INSTALLED
-    check_for_required_modding_files(&game_path);
+    check_for_required_modding_files(&current_config.game_path);
 
     /* -------------------- */
     /*   USER INTERACTION   */
@@ -106,32 +119,25 @@ fn main() {
     }
 }
 
+
+
 /* ---------- */
 /*   CHECKS   */
 /* ---------- */
 
-// GET GAMEPATH FROM FILE, IF PRESENT
-//fn get_gamepath_from_file() -> Option<PathBuf> {
-//    
-//}
-
 // CHECKING GAME PATH LOCATION
-fn check_gamepath(game_path: &mut PathBuf) {
-    if !game_path.exists() {
-        println!(
-            "Game installation not found at: $HOME/.local/share/Steam/steamapps/common/NieRAutomata"
-        );
-        println!("Insert your game path: ");
+fn correct_gamepath(game_path: &mut PathBuf) {
+    println!(
+        "Game installation not found at: $HOME/.local/share/Steam/steamapps/common/NieRAutomata"
+    );
+    println!("Insert your game path: ");
 
-        let mut new_path = String::new();
-        stdin()
-            .read_line(&mut new_path)
-            .expect("Failed to read input");
+    let mut new_path = String::new();
+    stdin()
+        .read_line(&mut new_path)
+        .expect("Failed to read input");
 
-        *game_path = PathBuf::from(new_path);
-    } else {
-        println!("Game installation found at {:?}", game_path)
-    }
+    *game_path = PathBuf::from(new_path);
 }
 
 // CHECKING IF REQUIRED MODDING FILES ARE ALREADY PRESENT
@@ -142,21 +148,17 @@ fn check_for_required_modding_files(game_path: &PathBuf) {
     // List of required modding files
     let mut required_modding_files_needed = HashMap::from([
         (
-            PathBuf::from(
-                "$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata(original).exe",
-            ),
+            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata(original).exe",),    // Original NieRAutomata exe with name changed according to my standards
             true,
-        ), // Original NieRAutomata exe with name changed according to my standards
+        ), 
         (
-            PathBuf::from(
-                "$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata.exe",
-            ),
+            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata.exe",),      // Modded game exe, both original and modded need to be present
             true,
-        ), // Modded game exe, both original and modded need to be present
+        ),
         (
-            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/d3d11.dll"),
+            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/d3d11.dll"),      // SpecialK dll
             true,
-        ), // SpecialK dll
+        ), 
     ]);
 
     // Check which files are present in the game's directory
