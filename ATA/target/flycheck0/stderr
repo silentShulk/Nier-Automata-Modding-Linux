@@ -1,5 +1,5 @@
-   0.086939200s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint: fingerprint error for ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA)/Check { test: false }/TargetInner { name: "ATA", doc: true, ..: with_path("C:\\Users\\marco.cottignoli\\Desktop\\Nier-Automata-Modding-Linux\\ATA\\src\\main.rs", Edition2024) }
-   0.086982100s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\ATA-81223968e842f321\bin-ATA`
+   0.077291600s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint: fingerprint error for ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA)/Check { test: false }/TargetInner { name: "ATA", doc: true, ..: with_path("C:\\Users\\marco.cottignoli\\Desktop\\Nier-Automata-Modding-Linux\\ATA\\src\\main.rs", Edition2024) }
+   0.077334500s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\ATA-81223968e842f321\bin-ATA`
 
 Caused by:
     Impossibile trovare il file specificato. (os error 2)
@@ -26,8 +26,8 @@ Stack backtrace:
   18: git_midx_writer_dump
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
-   0.113015800s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint: fingerprint error for ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA)/Check { test: true }/TargetInner { name: "ATA", doc: true, ..: with_path("C:\\Users\\marco.cottignoli\\Desktop\\Nier-Automata-Modding-Linux\\ATA\\src\\main.rs", Edition2024) }
-   0.113040300s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\ATA-2c766ec77c5cf7fc\test-bin-ATA`
+   0.100546600s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint: fingerprint error for ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA)/Check { test: true }/TargetInner { name: "ATA", doc: true, ..: with_path("C:\\Users\\marco.cottignoli\\Desktop\\Nier-Automata-Modding-Linux\\ATA\\src\\main.rs", Edition2024) }
+   0.100568900s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\ATA-2c766ec77c5cf7fc\test-bin-ATA`
 
 Caused by:
     Impossibile trovare il file specificato. (os error 2)
@@ -55,6 +55,6 @@ Stack backtrace:
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
     Checking ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA)
-error: could not compile `ATA` (bin "ATA") due to 2 previous errors; 9 warnings emitted
+error: could not compile `ATA` (bin "ATA") due to 2 previous errors; 10 warnings emitted
 warning: build failed, waiting for other jobs to finish...
-error: could not compile `ATA` (bin "ATA" test) due to 2 previous errors; 9 warnings emitted
+error: could not compile `ATA` (bin "ATA" test) due to 2 previous errors; 10 warnings emitted

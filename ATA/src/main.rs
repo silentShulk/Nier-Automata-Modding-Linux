@@ -1,5 +1,6 @@
 use std::collections::hash_map::HashMap;
 use std::env;
+use std::env::current_exe;
 use std::fs::File;
 use std::fs::read_dir;
 use std::io::Write;
@@ -118,8 +119,20 @@ fn main() {
     });
     
     // CHECKING GAME PATH LOCATION
-    while !current_config.game_path.exists() {
-        ask_for_correct_gamepath(&mut current_config.game_path);
+    match check_path(&current_config.game_path) {
+        Ok(check_result) => {
+            if !check_result {
+                ask_for_correct_gamepath(&mut current_config.game_path)
+                    .unwrap_or_else(|er| {
+                        eprint!("There was a problem trying to change the path. {}", er);
+                        std::process::exit(1);
+                    });
+            }
+        },
+        Err(er) => {
+            eprint!("There was a problem checking if the given path is the actual game path. {}", er);
+            std::process::exit(1)
+        }
     }
     println!("Game installation found at {:?}", current_config.game_path);
     
@@ -175,19 +188,28 @@ fn main() {
 
 // CHECK IF GIVEN PATH CONTAINS GAME FILES
 fn check_path(current_path: &PathBuf) -> Result<bool, std::io::Error> {
-    let is_gamepath = read_dir(current_path)?.any(|entry| {
-        entry.map(|e| e.file_name() == "NieRAutomata.exe").unwrap_or(false)
-    });
+    let is_gamepath = read_dir(current_path)?       
+        .filter_map(|res| {     // For each entry return Some(is-exe) or None and warn the user that an entry couldn't be read
+            match res {
+                Ok(entry) => Some(entry.file_name() == "NieRAutomata.exe"),
+                Err(e) => {
+                    eprintln!("Warning: Could not read an entry in the given path: {}", e);
+                    None 
+                }
+            }
+        })
+        .any(|is_match| is_match);      // Check if any of the entries that were read matched the is-exe predicate
 
     Ok(is_gamepath)
 }
 
 // CHECKING GAME PATH LOCATION
-fn ask_for_correct_gamepath(wrong_path: &mut PathBuf) -> Result<PathBuf, Box<dyn Error>> {
+fn ask_for_correct_gamepath(wrong_path: &mut PathBuf) -> Result<PathBuf, std::io::Error> {
     println!(
         "Game installation not found at: {:?}", wrong_path
     );
-    println!("Insert your game path: ");
+    print!("Insert your game path: ");
+    stdout().flush()?;
 
     let mut new_path = String::new();
     stdin().read_line(&mut new_path)?;
@@ -215,7 +237,7 @@ fn check_for_required_modding_files(game_path: &PathBuf)-> Result<bool, Box<dyn 
         ),
     ]);
 
-    // Check which files are present in the game's directory
+    // Check which of the required modding files are present in the game's directory
     for entry in game_files {
         let entry_path = entry?.path();
         if required_modding_files_needed.contains_key(&entry_path) {
