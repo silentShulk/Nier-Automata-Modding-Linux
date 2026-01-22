@@ -8,6 +8,7 @@ use std::io::{BufReader, stdin, stdout};
 use std::path::PathBuf;
 use std::process::Command;
 use std::error::Error;
+use std::process::ExitStatus;
 //use clap::{Arg, ArgAction}; // Will be used to add arguments
 use clap::Parser;
 use serde::{Deserialize, Serialize};
@@ -144,11 +145,25 @@ fn main() {
                 println!("Required modding files are already present. That's good!")
             }
             else {
-                missing_files_warning();
+                match missing_files_warning() {
+                    Ok(user_ans) => {
+                        if user_ans {
+                            run_auto_install_script(&current_config.game_path)
+                        }
+                        else {
+                            print!("Cannot continue without the required modding files, the program will now close...");
+                            std::process::exit(1)
+                        }
+                    }
+                    Err(er) => {
+                        eprint!("There was a problem writing/reading in console");
+                        std::process::exit(1);
+                    }
+                }
             }
         }
         Err(er) => {
-            eprint!("There was a problem while checking for the required modding files. {}", er);
+            eprint!("There was a problem while checking if required modding files were already installed on your systems. {}", er);
             std::process::exit(1);
         }
     }
@@ -255,7 +270,7 @@ fn check_for_required_modding_files(game_path: &PathBuf)-> Result<bool, Box<dyn 
 }
 
 // IF MODDING FILES AREN'T PRESENT, WARN THE USER
-fn missing_files_warning() -> Result<bool, Box<dyn Error>> {
+fn missing_files_warning() -> Result<bool, std::io::Error> {
     println!(
         "Required modding files are missing, you need to install them if you want to mod the game"
     );
@@ -266,28 +281,30 @@ fn missing_files_warning() -> Result<bool, Box<dyn Error>> {
     stdin().read_line(&mut answer)?;
     
     if answer.trim() == "Y" || answer.trim() == "y"  || answer.trim() == "" {
-        run_auto_install_script();
         Ok(true)
     } else {
-        println!("Can't continue without the required modding files");
         Ok(false)
     }
 }
 
 // IF THE USER WANTS TO, INSTALL THE FILES
-fn run_auto_install_script() -> Result<(), Box<dyn Error>> {
-    let exe_path = env::args_os()
-        .next()
-        .ok_or("Couldn't locate program's path")?;
-    let mut script_path = PathBuf::from(exe_path);
-    script_path.pop();
-    script_path.push("install_prerequisites.sh");
+fn run_auto_install_script(game_path: &PathBuf) -> Result<ExitStatus, Box<dyn Error>> {
+    let mut script_path = PathBuf::from("/usr/local/bin/ATA/install-prerequisites.sh");
 
-    let status = Command::new("bash").arg(&script_path).status();
+    print!("Insert the name of terminal emulator:");
+    stdout().flush()?;
+    let mut answer = String::new();
+    stdin().read_line(&mut answer)?;
+
+    let status = Command::new(answer)
+        .arg("-e")
+        .arg("bash")
+        .arg(&script_path)
+        .status();
 
     match status {
-        Ok(_) => println!("File executed succesfully, required modding files installed"),
-        Err(er) => eprintln!("Failed to execute files {}", er),
+        Ok(exit_status) => Ok(exit_status),
+        Err(er) => Err(Box::new(er))
     }
 }
 

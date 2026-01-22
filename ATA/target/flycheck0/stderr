@@ -1,5 +1,5 @@
-   0.077291600s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint: fingerprint error for ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA)/Check { test: false }/TargetInner { name: "ATA", doc: true, ..: with_path("C:\\Users\\marco.cottignoli\\Desktop\\Nier-Automata-Modding-Linux\\ATA\\src\\main.rs", Edition2024) }
-   0.077334500s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\ATA-81223968e842f321\bin-ATA`
+   0.055366400s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint: fingerprint error for ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA)/Check { test: false }/TargetInner { name: "ATA", doc: true, ..: with_path("C:\\Users\\marco.cottignoli\\Desktop\\Nier-Automata-Modding-Linux\\ATA\\src\\main.rs", Edition2024) }
+   0.055410000s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\ATA-81223968e842f321\bin-ATA`
 
 Caused by:
     Impossibile trovare il file specificato. (os error 2)
@@ -26,8 +26,1688 @@ Stack backtrace:
   18: git_midx_writer_dump
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
-   0.100546600s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint: fingerprint error for ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA)/Check { test: true }/TargetInner { name: "ATA", doc: true, ..: with_path("C:\\Users\\marco.cottignoli\\Desktop\\Nier-Automata-Modding-Linux\\ATA\\src\\main.rs", Edition2024) }
-   0.100568900s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\ATA-2c766ec77c5cf7fc\test-bin-ATA`
+   0.061465300s  INFO prepare_target{force=false package_id=clap v4.5.54 target="clap"}: cargo::core::compiler::fingerprint: fingerprint error for clap v4.5.54/Check { test: false }/TargetInner { benched: false, ..: lib_target("clap", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\clap-4.5.54\\src\\lib.rs", Edition2021) }
+   0.061489300s  INFO prepare_target{force=false package_id=clap v4.5.54 target="clap"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\clap-a8f6f1b985c3108c\lib-clap`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.063267400s  INFO prepare_target{force=false package_id=clap_derive v4.5.49 target="clap_derive"}: cargo::core::compiler::fingerprint: fingerprint error for clap_derive v4.5.49/Build/TargetInner { benched: false, for_host: true, proc_macro: true, ..: lib_target("clap_derive", ["proc-macro"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\clap_derive-4.5.49\\src\\lib.rs", Edition2021) }
+   0.063282200s  INFO prepare_target{force=false package_id=clap_derive v4.5.49 target="clap_derive"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\clap_derive-9d37636e63564807\lib-clap_derive`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.064654500s  INFO prepare_target{force=false package_id=serde v1.0.228 target="serde"}: cargo::core::compiler::fingerprint: fingerprint error for serde v1.0.228/Check { test: false }/TargetInner { ..: lib_target("serde", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde-1.0.228\\src\\lib.rs", Edition2021) }
+   0.064668500s  INFO prepare_target{force=false package_id=serde v1.0.228 target="serde"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\serde-5672a82f089ff991\lib-serde`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.065051600s  INFO prepare_target{force=false package_id=serde v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde v1.0.228/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde-1.0.228\\build.rs", Edition2021) }
+   0.065064900s  INFO prepare_target{force=false package_id=serde v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\serde-170d25af167437ff\run-build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.065151600s  INFO prepare_target{force=false package_id=serde v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde v1.0.228/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde-1.0.228\\build.rs", Edition2021) }
+   0.065159100s  INFO prepare_target{force=false package_id=serde v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\serde-bd66712cb0deb479\build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.065474000s  INFO prepare_target{force=false package_id=serde_core v1.0.228 target="serde_core"}: cargo::core::compiler::fingerprint: fingerprint error for serde_core v1.0.228/Check { test: false }/TargetInner { ..: lib_target("serde_core", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_core-1.0.228\\src\\lib.rs", Edition2021) }
+   0.065485900s  INFO prepare_target{force=false package_id=serde_core v1.0.228 target="serde_core"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\serde_core-f9c54758a275c741\lib-serde_core`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.065822500s  INFO prepare_target{force=false package_id=serde_core v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde_core v1.0.228/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_core-1.0.228\\build.rs", Edition2021) }
+   0.065833600s  INFO prepare_target{force=false package_id=serde_core v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\serde_core-eb5b876ea58b9ad6\run-build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.065911600s  INFO prepare_target{force=false package_id=serde_core v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde_core v1.0.228/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_core-1.0.228\\build.rs", Edition2021) }
+   0.065917200s  INFO prepare_target{force=false package_id=serde_core v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\serde_core-0065990d19f7f46a\build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.066230100s  INFO prepare_target{force=false package_id=serde_derive v1.0.228 target="serde_derive"}: cargo::core::compiler::fingerprint: fingerprint error for serde_derive v1.0.228/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("serde_derive", ["proc-macro"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_derive-1.0.228\\src\\lib.rs", Edition2021) }
+   0.066241500s  INFO prepare_target{force=false package_id=serde_derive v1.0.228 target="serde_derive"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\serde_derive-da1cbbe11b41e345\lib-serde_derive`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.066421500s  INFO prepare_target{force=false package_id=serde_json v1.0.149 target="serde_json"}: cargo::core::compiler::fingerprint: fingerprint error for serde_json v1.0.149/Check { test: false }/TargetInner { ..: lib_target("serde_json", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_json-1.0.149\\src\\lib.rs", Edition2021) }
+   0.066432400s  INFO prepare_target{force=false package_id=serde_json v1.0.149 target="serde_json"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\serde_json-9b6d47517cbedb56\lib-serde_json`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.066931400s  INFO prepare_target{force=false package_id=serde_json v1.0.149 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde_json v1.0.149/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_json-1.0.149\\build.rs", Edition2021) }
+   0.066943600s  INFO prepare_target{force=false package_id=serde_json v1.0.149 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\serde_json-b8c3bbcba2d51bb0\run-build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.067022200s  INFO prepare_target{force=false package_id=serde_json v1.0.149 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde_json v1.0.149/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_json-1.0.149\\build.rs", Edition2021) }
+   0.067027900s  INFO prepare_target{force=false package_id=serde_json v1.0.149 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\serde_json-1f8803e0a4f0d3ff\build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.067282800s  INFO prepare_target{force=false package_id=zmij v1.0.15 target="zmij"}: cargo::core::compiler::fingerprint: fingerprint error for zmij v1.0.15/Check { test: false }/TargetInner { ..: lib_target("zmij", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zmij-1.0.15\\src\\lib.rs", Edition2021) }
+   0.067293100s  INFO prepare_target{force=false package_id=zmij v1.0.15 target="zmij"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zmij-0f0e4e467a42caa6\lib-zmij`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.067625600s  INFO prepare_target{force=false package_id=zmij v1.0.15 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for zmij v1.0.15/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zmij-1.0.15\\build.rs", Edition2021) }
+   0.067638000s  INFO prepare_target{force=false package_id=zmij v1.0.15 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zmij-6580d838b00ff108\run-build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.067746100s  INFO prepare_target{force=false package_id=zmij v1.0.15 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for zmij v1.0.15/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zmij-1.0.15\\build.rs", Edition2021) }
+   0.067753900s  INFO prepare_target{force=false package_id=zmij v1.0.15 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zmij-393097bd91324e3e\build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.068229500s  INFO prepare_target{force=false package_id=zip v7.1.0 target="zip"}: cargo::core::compiler::fingerprint: fingerprint error for zip v7.1.0/Check { test: false }/TargetInner { ..: lib_target("zip", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zip-7.1.0\\src\\lib.rs", Edition2021) }
+   0.068240400s  INFO prepare_target{force=false package_id=zip v7.1.0 target="zip"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zip-5ee33c86881c2394\lib-zip`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.068582100s  INFO prepare_target{force=false package_id=aes v0.8.4 target="aes"}: cargo::core::compiler::fingerprint: fingerprint error for aes v0.8.4/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("aes", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\aes-0.8.4\\src\\lib.rs", Edition2021) }
+   0.068593200s  INFO prepare_target{force=false package_id=aes v0.8.4 target="aes"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\aes-eeb12a5289069e9b\lib-aes`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.068883100s  INFO prepare_target{force=false package_id=cipher v0.4.4 target="cipher"}: cargo::core::compiler::fingerprint: fingerprint error for cipher v0.4.4/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("cipher", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\cipher-0.4.4\\src\\lib.rs", Edition2021) }
+   0.068895600s  INFO prepare_target{force=false package_id=cipher v0.4.4 target="cipher"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\cipher-de1a032a7e74ccad\lib-cipher`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.069065300s  INFO prepare_target{force=false package_id=crypto-common v0.1.7 target="crypto_common"}: cargo::core::compiler::fingerprint: fingerprint error for crypto-common v0.1.7/Check { test: false }/TargetInner { ..: lib_target("crypto_common", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\crypto-common-0.1.7\\src\\lib.rs", Edition2018) }
+   0.069074500s  INFO prepare_target{force=false package_id=crypto-common v0.1.7 target="crypto_common"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\crypto-common-d2c5bfa20cdcb174\lib-crypto_common`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.069206500s  INFO prepare_target{force=false package_id=generic-array v0.14.7 target="generic_array"}: cargo::core::compiler::fingerprint: fingerprint error for generic-array v0.14.7/Check { test: false }/TargetInner { ..: lib_target("generic_array", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\generic-array-0.14.7\\src\\lib.rs", Edition2015) }
+   0.069214800s  INFO prepare_target{force=false package_id=generic-array v0.14.7 target="generic_array"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\generic-array-1519274969d4122f\lib-generic_array`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_libgit2_prerelease
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: git_midx_writer_dump
+  22: git_filter_source_repo
+  23: git_midx_writer_dump
+  24: BaseThreadInitThunk
+  25: RtlUserThreadStart
+   0.069509100s  INFO prepare_target{force=false package_id=generic-array v0.14.7 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for generic-array v0.14.7/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\generic-array-0.14.7\\build.rs", Edition2015) }
+   0.069519800s  INFO prepare_target{force=false package_id=generic-array v0.14.7 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\generic-array-0214605cadba89f0\run-build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_filter_source_repo
+  17: git_filter_source_repo
+  18: git_libgit2_prerelease
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: git_midx_writer_dump
+  24: git_filter_source_repo
+  25: git_midx_writer_dump
+  26: BaseThreadInitThunk
+  27: RtlUserThreadStart
+   0.069593200s  INFO prepare_target{force=false package_id=generic-array v0.14.7 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for generic-array v0.14.7/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\generic-array-0.14.7\\build.rs", Edition2015) }
+   0.069600200s  INFO prepare_target{force=false package_id=generic-array v0.14.7 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\generic-array-7805c3d1f9039c62\build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_filter_source_repo
+  17: git_filter_source_repo
+  18: git_libgit2_prerelease
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: git_midx_writer_dump
+  24: git_filter_source_repo
+  25: git_midx_writer_dump
+  26: BaseThreadInitThunk
+  27: RtlUserThreadStart
+   0.069960400s  INFO prepare_target{force=false package_id=typenum v1.19.0 target="typenum"}: cargo::core::compiler::fingerprint: fingerprint error for typenum v1.19.0/Check { test: false }/TargetInner { ..: lib_target("typenum", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\typenum-1.19.0\\src\\lib.rs", Edition2018) }
+   0.069971700s  INFO prepare_target{force=false package_id=typenum v1.19.0 target="typenum"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\typenum-21b98774da3f6d17\lib-typenum`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_filter_source_repo
+  17: git_libgit2_prerelease
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: git_midx_writer_dump
+  23: git_filter_source_repo
+  24: git_midx_writer_dump
+  25: BaseThreadInitThunk
+  26: RtlUserThreadStart
+   0.070289000s  INFO prepare_target{force=false package_id=typenum v1.19.0 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for typenum v1.19.0/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\typenum-1.19.0\\build.rs", Edition2018) }
+   0.070299800s  INFO prepare_target{force=false package_id=typenum v1.19.0 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\typenum-86e20b4fbdcf0a63\run-build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_filter_source_repo
+  17: git_filter_source_repo
+  18: git_filter_source_repo
+  19: git_libgit2_prerelease
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: git_midx_writer_dump
+  25: git_filter_source_repo
+  26: git_midx_writer_dump
+  27: BaseThreadInitThunk
+  28: RtlUserThreadStart
+   0.070401500s  INFO prepare_target{force=false package_id=typenum v1.19.0 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for typenum v1.19.0/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\typenum-1.19.0\\build.rs", Edition2018) }
+   0.070407200s  INFO prepare_target{force=false package_id=typenum v1.19.0 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\typenum-1ee6afc9f8e45c6a\build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_filter_source_repo
+  17: git_filter_source_repo
+  18: git_filter_source_repo
+  19: git_libgit2_prerelease
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: git_midx_writer_dump
+  25: git_filter_source_repo
+  26: git_midx_writer_dump
+  27: BaseThreadInitThunk
+  28: RtlUserThreadStart
+   0.070649200s  INFO prepare_target{force=false package_id=inout v0.1.4 target="inout"}: cargo::core::compiler::fingerprint: fingerprint error for inout v0.1.4/Check { test: false }/TargetInner { ..: lib_target("inout", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\inout-0.1.4\\src\\lib.rs", Edition2021) }
+   0.070659700s  INFO prepare_target{force=false package_id=inout v0.1.4 target="inout"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\inout-36d4f5a621ff6ce9\lib-inout`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.071129300s  INFO prepare_target{force=false package_id=crc32fast v1.5.0 target="crc32fast"}: cargo::core::compiler::fingerprint: fingerprint error for crc32fast v1.5.0/Check { test: false }/TargetInner { ..: lib_target("crc32fast", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\crc32fast-1.5.0\\src\\lib.rs", Edition2021) }
+   0.071140200s  INFO prepare_target{force=false package_id=crc32fast v1.5.0 target="crc32fast"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\crc32fast-14e7c7087b910966\lib-crc32fast`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.071492300s  INFO prepare_target{force=false package_id=crc32fast v1.5.0 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for crc32fast v1.5.0/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\crc32fast-1.5.0\\build.rs", Edition2021) }
+   0.071503600s  INFO prepare_target{force=false package_id=crc32fast v1.5.0 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\crc32fast-4809d0bde4a0bd81\run-build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.071580000s  INFO prepare_target{force=false package_id=crc32fast v1.5.0 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for crc32fast v1.5.0/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\crc32fast-1.5.0\\build.rs", Edition2021) }
+   0.071587300s  INFO prepare_target{force=false package_id=crc32fast v1.5.0 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\crc32fast-66cba225e15aac66\build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.071932300s  INFO prepare_target{force=false package_id=flate2 v1.1.8 target="flate2"}: cargo::core::compiler::fingerprint: fingerprint error for flate2 v1.1.8/Check { test: false }/TargetInner { ..: lib_target("flate2", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\flate2-1.1.8\\src\\lib.rs", Edition2018) }
+   0.071943200s  INFO prepare_target{force=false package_id=flate2 v1.1.8 target="flate2"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\flate2-1b70763e4f3eaa64\lib-flate2`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.072279100s  INFO prepare_target{force=false package_id=getrandom v0.3.4 target="getrandom"}: cargo::core::compiler::fingerprint: fingerprint error for getrandom v0.3.4/Check { test: false }/TargetInner { ..: lib_target("getrandom", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\getrandom-0.3.4\\src\\lib.rs", Edition2021) }
+   0.072289900s  INFO prepare_target{force=false package_id=getrandom v0.3.4 target="getrandom"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\getrandom-d7429028535df1d0\lib-getrandom`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.072684900s  INFO prepare_target{force=false package_id=getrandom v0.3.4 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for getrandom v0.3.4/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\getrandom-0.3.4\\build.rs", Edition2021) }
+   0.072695500s  INFO prepare_target{force=false package_id=getrandom v0.3.4 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\getrandom-b89264fe48e9a9b6\run-build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.072775900s  INFO prepare_target{force=false package_id=getrandom v0.3.4 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for getrandom v0.3.4/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\getrandom-0.3.4\\build.rs", Edition2021) }
+   0.072782000s  INFO prepare_target{force=false package_id=getrandom v0.3.4 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\getrandom-f3cca79190d8e765\build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.073117500s  INFO prepare_target{force=false package_id=hmac v0.12.1 target="hmac"}: cargo::core::compiler::fingerprint: fingerprint error for hmac v0.12.1/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("hmac", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\hmac-0.12.1\\src\\lib.rs", Edition2018) }
+   0.073133400s  INFO prepare_target{force=false package_id=hmac v0.12.1 target="hmac"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\hmac-3207295912c167ed\lib-hmac`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.073353500s  INFO prepare_target{force=false package_id=digest v0.10.7 target="digest"}: cargo::core::compiler::fingerprint: fingerprint error for digest v0.10.7/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("digest", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\digest-0.10.7\\src\\lib.rs", Edition2018) }
+   0.073365700s  INFO prepare_target{force=false package_id=digest v0.10.7 target="digest"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\digest-41790d80230fac4d\lib-digest`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.073579800s  INFO prepare_target{force=false package_id=block-buffer v0.10.4 target="block_buffer"}: cargo::core::compiler::fingerprint: fingerprint error for block-buffer v0.10.4/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("block_buffer", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\block-buffer-0.10.4\\src\\lib.rs", Edition2018) }
+   0.073590000s  INFO prepare_target{force=false package_id=block-buffer v0.10.4 target="block_buffer"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\block-buffer-030cc9d94631922a\lib-block_buffer`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.074135900s  INFO prepare_target{force=false package_id=lzma-rust2 v0.15.7 target="lzma_rust2"}: cargo::core::compiler::fingerprint: fingerprint error for lzma-rust2 v0.15.7/Check { test: false }/TargetInner { ..: lib_target("lzma_rust2", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\lzma-rust2-0.15.7\\src\\lib.rs", Edition2021) }
+   0.074146600s  INFO prepare_target{force=false package_id=lzma-rust2 v0.15.7 target="lzma_rust2"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\lzma-rust2-137d1a3680764893\lib-lzma_rust2`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.074532400s  INFO prepare_target{force=false package_id=sha2 v0.10.9 target="sha2"}: cargo::core::compiler::fingerprint: fingerprint error for sha2 v0.10.9/Check { test: false }/TargetInner { ..: lib_target("sha2", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\sha2-0.10.9\\src\\lib.rs", Edition2018) }
+   0.074542400s  INFO prepare_target{force=false package_id=sha2 v0.10.9 target="sha2"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\sha2-1a039adbf184221d\lib-sha2`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.074738300s  INFO prepare_target{force=false package_id=pbkdf2 v0.12.2 target="pbkdf2"}: cargo::core::compiler::fingerprint: fingerprint error for pbkdf2 v0.12.2/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("pbkdf2", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\pbkdf2-0.12.2\\src\\lib.rs", Edition2021) }
+   0.074747000s  INFO prepare_target{force=false package_id=pbkdf2 v0.12.2 target="pbkdf2"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\pbkdf2-20d09206fa058714\lib-pbkdf2`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.075052900s  INFO prepare_target{force=false package_id=sha1 v0.10.6 target="sha1"}: cargo::core::compiler::fingerprint: fingerprint error for sha1 v0.10.6/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("sha1", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\sha1-0.10.6\\src\\lib.rs", Edition2018) }
+   0.075064300s  INFO prepare_target{force=false package_id=sha1 v0.10.6 target="sha1"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\sha1-ef32f110026d518d\lib-sha1`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.075696000s  INFO prepare_target{force=false package_id=zeroize v1.8.2 target="zeroize"}: cargo::core::compiler::fingerprint: fingerprint error for zeroize v1.8.2/Check { test: false }/TargetInner { ..: lib_target("zeroize", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zeroize-1.8.2\\src\\lib.rs", Edition2021) }
+   0.075706900s  INFO prepare_target{force=false package_id=zeroize v1.8.2 target="zeroize"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zeroize-d4f19653d87ce810\lib-zeroize`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.075873700s  INFO prepare_target{force=false package_id=zeroize_derive v1.4.3 target="zeroize_derive"}: cargo::core::compiler::fingerprint: fingerprint error for zeroize_derive v1.4.3/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("zeroize_derive", ["proc-macro"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zeroize_derive-1.4.3\\src\\lib.rs", Edition2021) }
+   0.075915400s  INFO prepare_target{force=false package_id=zeroize_derive v1.4.3 target="zeroize_derive"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zeroize_derive-3d5dc013fedc5ba6\lib-zeroize_derive`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.076282800s  INFO prepare_target{force=false package_id=zopfli v0.8.3 target="zopfli"}: cargo::core::compiler::fingerprint: fingerprint error for zopfli v0.8.3/Check { test: false }/TargetInner { ..: lib_target("zopfli", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zopfli-0.8.3\\src\\lib.rs", Edition2021) }
+   0.076296800s  INFO prepare_target{force=false package_id=zopfli v0.8.3 target="zopfli"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zopfli-991c3c0e362e997c\lib-zopfli`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.076735000s  INFO prepare_target{force=false package_id=zstd v0.13.3 target="zstd"}: cargo::core::compiler::fingerprint: fingerprint error for zstd v0.13.3/Check { test: false }/TargetInner { ..: lib_target("zstd", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zstd-0.13.3\\src\\lib.rs", Edition2018) }
+   0.076746400s  INFO prepare_target{force=false package_id=zstd v0.13.3 target="zstd"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zstd-6aeb01883a7bf51f\lib-zstd`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.076939000s  INFO prepare_target{force=false package_id=zstd-safe v7.2.4 target="zstd_safe"}: cargo::core::compiler::fingerprint: fingerprint error for zstd-safe v7.2.4/Check { test: false }/TargetInner { ..: lib_target("zstd_safe", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zstd-safe-7.2.4\\src\\lib.rs", Edition2018) }
+   0.076949200s  INFO prepare_target{force=false package_id=zstd-safe v7.2.4 target="zstd_safe"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zstd-safe-4f2a4f9aae236c67\lib-zstd_safe`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.077312700s  INFO prepare_target{force=false package_id=zstd-safe v7.2.4 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for zstd-safe v7.2.4/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zstd-safe-7.2.4\\build.rs", Edition2018) }
+   0.077326300s  INFO prepare_target{force=false package_id=zstd-safe v7.2.4 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zstd-safe-343c4f830b16bf98\run-build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_libgit2_prerelease
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: git_midx_writer_dump
+  22: git_filter_source_repo
+  23: git_midx_writer_dump
+  24: BaseThreadInitThunk
+  25: RtlUserThreadStart
+   0.077414200s  INFO prepare_target{force=false package_id=zstd-safe v7.2.4 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for zstd-safe v7.2.4/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zstd-safe-7.2.4\\build.rs", Edition2018) }
+   0.077421900s  INFO prepare_target{force=false package_id=zstd-safe v7.2.4 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zstd-safe-1dd219735d54bb19\build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_libgit2_prerelease
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: git_midx_writer_dump
+  22: git_filter_source_repo
+  23: git_midx_writer_dump
+  24: BaseThreadInitThunk
+  25: RtlUserThreadStart
+   0.077862100s  INFO prepare_target{force=false package_id=zstd-sys v2.0.16+zstd.1.5.7 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for zstd-sys v2.0.16+zstd.1.5.7/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zstd-sys-2.0.16+zstd.1.5.7\\build.rs", Edition2018) }
+   0.077882000s  INFO prepare_target{force=false package_id=zstd-sys v2.0.16+zstd.1.5.7 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zstd-sys-c8b21afc347e61f9\run-build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_filter_source_repo
+  17: git_libgit2_prerelease
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: git_midx_writer_dump
+  23: git_filter_source_repo
+  24: git_midx_writer_dump
+  25: BaseThreadInitThunk
+  26: RtlUserThreadStart
+   0.077963700s  INFO prepare_target{force=false package_id=zstd-sys v2.0.16+zstd.1.5.7 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for zstd-sys v2.0.16+zstd.1.5.7/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zstd-sys-2.0.16+zstd.1.5.7\\build.rs", Edition2018) }
+   0.077971700s  INFO prepare_target{force=false package_id=zstd-sys v2.0.16+zstd.1.5.7 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zstd-sys-f469f347d94e8e91\build-script-build-script-build`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_filter_source_repo
+  17: git_libgit2_prerelease
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: git_midx_writer_dump
+  23: git_filter_source_repo
+  24: git_midx_writer_dump
+  25: BaseThreadInitThunk
+  26: RtlUserThreadStart
+   0.078133200s  INFO prepare_target{force=false package_id=cc v1.2.53 target="cc"}: cargo::core::compiler::fingerprint: fingerprint error for cc v1.2.53/Build/TargetInner { ..: lib_target("cc", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\cc-1.2.53\\src\\lib.rs", Edition2018) }
+   0.078142600s  INFO prepare_target{force=false package_id=cc v1.2.53 target="cc"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\cc-0d2c821adc9cab83\lib-cc`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_filter_source_repo
+  17: git_filter_source_repo
+  18: git_libgit2_prerelease
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: git_midx_writer_dump
+  24: git_filter_source_repo
+  25: git_midx_writer_dump
+  26: BaseThreadInitThunk
+  27: RtlUserThreadStart
+   0.078416700s  INFO prepare_target{force=false package_id=jobserver v0.1.34 target="jobserver"}: cargo::core::compiler::fingerprint: fingerprint error for jobserver v0.1.34/Build/TargetInner { ..: lib_target("jobserver", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\jobserver-0.1.34\\src\\lib.rs", Edition2021) }
+   0.078426900s  INFO prepare_target{force=false package_id=jobserver v0.1.34 target="jobserver"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\jobserver-abb20da0cde9c642\lib-jobserver`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_filter_source_repo
+  17: git_filter_source_repo
+  18: git_filter_source_repo
+  19: git_libgit2_prerelease
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: git_midx_writer_dump
+  25: git_filter_source_repo
+  26: git_midx_writer_dump
+  27: BaseThreadInitThunk
+  28: RtlUserThreadStart
+   0.078583900s  INFO prepare_target{force=false package_id=getrandom v0.3.4 target="getrandom"}: cargo::core::compiler::fingerprint: fingerprint error for getrandom v0.3.4/Build/TargetInner { ..: lib_target("getrandom", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\getrandom-0.3.4\\src\\lib.rs", Edition2021) }
+   0.078592700s  INFO prepare_target{force=false package_id=getrandom v0.3.4 target="getrandom"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\getrandom-6149e50a54e0795c\lib-getrandom`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_filter_source_repo
+  17: git_filter_source_repo
+  18: git_filter_source_repo
+  19: git_filter_source_repo
+  20: git_libgit2_prerelease
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: <unknown>
+  25: git_midx_writer_dump
+  26: git_filter_source_repo
+  27: git_midx_writer_dump
+  28: BaseThreadInitThunk
+  29: RtlUserThreadStart
+   0.078952800s  INFO prepare_target{force=false package_id=zstd-sys v2.0.16+zstd.1.5.7 target="zstd_sys"}: cargo::core::compiler::fingerprint: fingerprint error for zstd-sys v2.0.16+zstd.1.5.7/Check { test: false }/TargetInner { doctest: false, ..: lib_target("zstd_sys", ["lib"], "C:\\Users\\marco.cottignoli\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\zstd-sys-2.0.16+zstd.1.5.7\\src\\lib.rs", Edition2018) }
+   0.078964100s  INFO prepare_target{force=false package_id=zstd-sys v2.0.16+zstd.1.5.7 target="zstd_sys"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\zstd-sys-e772d40fb722c417\lib-zstd_sys`
+
+Caused by:
+    Impossibile trovare il file specificato. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.079159300s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint: fingerprint error for ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA)/Check { test: true }/TargetInner { name: "ATA", doc: true, ..: with_path("C:\\Users\\marco.cottignoli\\Desktop\\Nier-Automata-Modding-Linux\\ATA\\src\\main.rs", Edition2024) }
+   0.079170000s  INFO prepare_target{force=false package_id=ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA) target="ATA"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA\target\debug\.fingerprint\ATA-2c766ec77c5cf7fc\test-bin-ATA`
 
 Caused by:
     Impossibile trovare il file specificato. (os error 2)
@@ -54,7 +1734,28 @@ Stack backtrace:
   18: git_midx_writer_dump
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
-    Checking ATA v0.1.0 (C:\Users\marco.cottignoli\Desktop\Nier-Automata-Modding-Linux\ATA)
-error: could not compile `ATA` (bin "ATA") due to 2 previous errors; 10 warnings emitted
+   Compiling typenum v1.19.0
+   Compiling generic-array v0.14.7
+   Compiling getrandom v0.3.4
+   Compiling crc32fast v1.5.0
+   Compiling serde_core v1.0.228
+   Compiling zstd-safe v7.2.4
+   Compiling zmij v1.0.15
+   Compiling zeroize_derive v1.4.3
+   Compiling serde v1.0.228
+   Compiling serde_json v1.0.149
+   Compiling clap_derive v4.5.49
+   Compiling serde_derive v1.0.228
+error: could not compile `generic-array` (build script) due to 1 previous error
 warning: build failed, waiting for other jobs to finish...
-error: could not compile `ATA` (bin "ATA" test) due to 2 previous errors; 10 warnings emitted
+error: could not compile `zstd-safe` (build script) due to 1 previous error
+error: could not compile `serde_json` (build script) due to 1 previous error
+error: could not compile `crc32fast` (build script) due to 1 previous error
+error: could not compile `zmij` (build script) due to 1 previous error
+error: could not compile `getrandom` (build script) due to 1 previous error
+error: could not compile `serde_core` (build script) due to 1 previous error
+error: could not compile `serde` (build script) due to 1 previous error
+error: could not compile `typenum` (build script) due to 1 previous error
+error: could not compile `zeroize_derive` (lib) due to 1 previous error
+error: could not compile `clap_derive` (lib) due to 1 previous error
+error: could not compile `serde_derive` (lib) due to 1 previous error
