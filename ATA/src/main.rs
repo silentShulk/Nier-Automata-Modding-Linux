@@ -14,6 +14,8 @@ use clap::Parser;
 use serde::{Deserialize, Serialize};
 
 mod mod_managing;
+mod checks;
+use checks::*;
 use crate::mod_managing::features::*;
 
 // Path for the json file containing data on game's path and installed mods
@@ -114,8 +116,9 @@ fn main() {
         Ok(Config::default())
     })
     .unwrap_or_else(|err| {
-        eprintln!("ERROR: Failed to load data file (~/.config/ATA/data.json)\n
-        		Consider checking if the file is there and if it isn't corrupted.\n{}", err);
+        eprintln!("ERROR: Failed to load data file (~/.config/ATA/data.json){}\n
+        		Consider checking if the file is there and if it isn't corrupted.\n
+                ATA will now close...", err);
         std::process::exit(1);
     });
     
@@ -125,13 +128,15 @@ fn main() {
             if !check_result {
                 ask_for_correct_gamepath(&mut current_config.game_path)
                     .unwrap_or_else(|er| {
-                        eprint!("There was a problem trying to change the path. {}", er);
+                        eprint!("There was a problem trying to change the path. {}\n
+                        ATA will now close...", er);
                         std::process::exit(1);
                     });
             }
         },
         Err(er) => {
-            eprint!("There was a problem checking if the given path is the actual game path. {}", er);
+            eprint!("There was a problem checking if the given path is the actual game path.{}\n
+            ATA will now close...", er);
             std::process::exit(1)
         }
     }
@@ -148,22 +153,31 @@ fn main() {
                 match missing_files_warning() {
                     Ok(user_ans) => {
                         if user_ans {
-                            run_auto_install_script(&current_config.game_path)
+                            match run_auto_install_script() {
+                                Ok(ext_st) => println!("Installation of required modding files completed with exit status. {}", ext_st),
+                                Err(er) => {
+                                    println!("There was a problem installing the required modding files. {}\n
+                                    ATA will now close", er);
+                                    std::process::exit(1)
+                                }
+                            }
                         }
                         else {
-                            print!("Cannot continue without the required modding files, the program will now close...");
+                            print!("Cannot continue without the required modding files, ATA will now close...");
                             std::process::exit(1)
                         }
                     }
                     Err(er) => {
-                        eprint!("There was a problem writing/reading in console");
+                        eprint!("There was a problem writing/reading in console. {}\n
+                        ATA will now close", er);
                         std::process::exit(1);
                     }
                 }
             }
         }
         Err(er) => {
-            eprint!("There was a problem while checking if required modding files were already installed on your systems. {}", er);
+            eprint!("There was a problem while checking if required modding files were already installed on your system. {}\n
+            ATA will now close", er);
             std::process::exit(1);
         }
     }
@@ -197,116 +211,8 @@ fn main() {
 
 
 
-/* ---------- */
-/*   CHECKS   */
-/* ---------- */
 
-// CHECK IF GIVEN PATH CONTAINS GAME FILES
-fn check_path(current_path: &PathBuf) -> Result<bool, std::io::Error> {
-    let is_gamepath = read_dir(current_path)?       
-        .filter_map(|res| {     // For each entry return Some(is-exe) or None and warn the user that an entry couldn't be read
-            match res {
-                Ok(entry) => Some(entry.file_name() == "NieRAutomata.exe"),
-                Err(e) => {
-                    eprintln!("Warning: Could not read an entry in the given path: {}", e);
-                    None 
-                }
-            }
-        })
-        .any(|is_match| is_match);      // Check if any of the entries that were read matched the is-exe predicate
 
-    Ok(is_gamepath)
-}
-
-// CHECKING GAME PATH LOCATION
-fn ask_for_correct_gamepath(wrong_path: &mut PathBuf) -> Result<PathBuf, std::io::Error> {
-    println!(
-        "Game installation not found at: {:?}", wrong_path
-    );
-    print!("Insert your game path: ");
-    stdout().flush()?;
-
-    let mut new_path = String::new();
-    stdin().read_line(&mut new_path)?;
-
-    Ok(PathBuf::from(new_path.trim()))
-}
-
-// CHECKING IF REQUIRED MODDING FILES ARE ALREADY PRESENT
-fn check_for_required_modding_files(game_path: &PathBuf)-> Result<bool, Box<dyn Error>> {
-    let game_files = read_dir(game_path)?; // Get the files in the game's directory
-
-    // List of required modding files
-    let mut required_modding_files_needed = HashMap::from([
-        (
-            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata(original).exe",), // Original NieRAutomata exe with name changed according to my standards
-            true,
-        ),
-        (
-            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata.exe",), // Modded game exe, both original and modded need to be present
-            true,
-        ),
-        (
-            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/d3d11.dll"), // SpecialK dll
-            true,
-        ),
-    ]);
-
-    // Check which of the required modding files are present in the game's directory
-    for entry in game_files {
-        let entry_path = entry?.path();
-        if required_modding_files_needed.contains_key(&entry_path) {
-            required_modding_files_needed
-                .entry(entry_path)
-                .and_modify(|val| *val = !*val);
-        }
-    }
-
-    let modding_files_present = required_modding_files_needed
-        .values()
-        .all(|&val| val == false);
-
-    Ok(modding_files_present)
-}
-
-// IF MODDING FILES AREN'T PRESENT, WARN THE USER
-fn missing_files_warning() -> Result<bool, std::io::Error> {
-    println!(
-        "Required modding files are missing, you need to install them if you want to mod the game"
-    );
-    print!("Start installation of required modding files? [Y/n]");
-    stdout().flush()?;
-
-    let mut answer = String::new();
-    stdin().read_line(&mut answer)?;
-    
-    if answer.trim() == "Y" || answer.trim() == "y"  || answer.trim() == "" {
-        Ok(true)
-    } else {
-        Ok(false)
-    }
-}
-
-// IF THE USER WANTS TO, INSTALL THE FILES
-fn run_auto_install_script(game_path: &PathBuf) -> Result<ExitStatus, Box<dyn Error>> {
-    let mut script_path = PathBuf::from("/usr/local/bin/ATA/install-prerequisites.sh");
-
-    print!("Insert the name of terminal emulator:");
-    stdout().flush()?;
-    let mut answer = String::new();
-    stdin().read_line(&mut answer)?;
-
-    let status = Command::new(answer)
-        .arg("-e")
-        .arg("bash")
-        .arg(&script_path)
-        .status();
-
-    match status {
-        Ok(exit_status) => Ok(exit_status),
-        Err(er) => Err(Box::new(er))
-    }
-}
 
 /* ---------------------- */
 /*   USER ACTION CHOICE   */
