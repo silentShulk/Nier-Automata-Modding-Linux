@@ -18,10 +18,10 @@ pub fn install_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Error
     println!("To install a mod type the path to the compressed folder of a mod you downloaded\n\
             IT HAS TO BE A COMPRESSED FOLDER (.zip, .7z, .rar)");
     print!("Insert path >> ");
-    stdout().flush();
+    stdout().flush()?;
     
     let mut answer = String::new();
-    stdin().read_line(&mut answer);
+    stdin().read_line(&mut answer)?;
     let answered_path = PathBuf::from(answer.trim());
     
     if answered_path.exists() {

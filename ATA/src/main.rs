@@ -1,21 +1,14 @@
-use std::collections::hash_map::HashMap;
-use std::env;
-use std::env::current_exe;
 use std::fs::File;
-use std::fs::read_dir;
-use std::io::Write;
-use std::io::{BufReader, stdin, stdout};
+use std::io::{BufReader, stdin};
 use std::path::PathBuf;
-use std::process::Command;
 use std::error::Error;
-use std::process::ExitStatus;
 //use clap::{Arg, ArgAction}; // Will be used to add arguments
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 
 mod mod_managing;
 mod checks;
-use checks::*;
+use checks::{check_path, ask_for_correct_gamepath, check_for_required_modding_files, missing_files_warning, run_auto_install_script};
 use crate::mod_managing::features::*;
 
 // Path for the json file containing data on game's path and installed mods
@@ -97,6 +90,9 @@ impl Default for Config {
         }
     }
 }
+
+
+
 
 
 
