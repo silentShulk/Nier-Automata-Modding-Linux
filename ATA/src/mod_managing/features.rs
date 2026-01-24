@@ -1,8 +1,9 @@
 use std::{self, io::Write};
 use std::fs::File;
 use std::path::PathBuf;
+use std::error::Error;
 use zip::ZipArchive;
-use std::io::{Error, stdin, stdout};
+use std::io::{stdin, stdout};
 use walkdir::WalkDir;
 
 use super::installation_methods::*;
@@ -14,7 +15,7 @@ use crate::*;
 /*   MOD INSTALLATION   */
 /* -------------------- */
 
-pub fn install_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Error>> {
+pub fn install_mod(game_path: &PathBuf) -> Result<(), Box<dyn Error>> {
     println!("To install a mod type the path to the compressed folder of a mod you downloaded\n\
             IT HAS TO BE A COMPRESSED FOLDER (.zip, .7z, .rar)");
     print!("Insert path >> ");
@@ -28,13 +29,33 @@ pub fn install_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Error
         let (mod_type, mod_files_path) = check_mod_type(answered_path)
         	.ok_or("The given path doesn't contain a mod")?;
         match mod_type {
-           	ModType::Textures =>  install_texture(mod_files_path, game_path),
-           	ModType::PlayerModels => install_player_model(mod_files_path),
-           	ModType::WeaponModels => install_weapon_model(mod_files_path),
-           	ModType::WorldModels => install_world_model(mod_files_path),
-            ModType::CutsceneReplacements => install_cutscene_replacements(mod_files_path),
-            ModType::ReshadePreset => install_reshade_preset(mod_files_path)
+           	ModType::Textures => {
+                let installed_mod = install_texture(mod_files_path, game_path)?;
+                save_mod_data(installed_mod);
+            }
+           	ModType::PlayerModels => {
+                let installed_mod = install_player_model(mod_files_path, game_path)?;
+                save_mod_data(installed_mod);
+            }
+           	ModType::WeaponModels => {
+            	let installed_mod = install_weapon_model(mod_files_path, game_path)?;
+            	save_mod_data(installed_mod);
+            }
+           	ModType::WorldModels => {
+            	let installed_mod = install_world_model(mod_files_path, game_path)?;
+            	save_mod_data(installed_mod);
+            }
+            ModType::CutsceneReplacements => {
+            	let installed_mod = install_cutscene_replacements(mod_files_path, game_path)?;
+            	save_mod_data(installed_mod);
+            }
+            ModType::ReshadePreset => {
+            	let installed_mod = install_reshade_preset(mod_files_path, game_path)?;
+            	save_mod_data(installed_mod);
+            }
         }
+        
+        Ok(())
     } 
     else {
         Err("Mod path does not exist".into())
@@ -84,7 +105,7 @@ fn check_mod_type(zip_path: PathBuf) -> Option<(ModType, PathBuf)> {
     return None;
 }
 
-fn unzip_folder(zipped_mod_folder: &PathBuf) -> Result<PathBuf, Error> {
+fn unzip_folder(zipped_mod_folder: &PathBuf) -> Result<PathBuf, Box<dyn Error>> {
     let mod_file = File::open(zipped_mod_folder).expect("Couldn't access mod archive");
     
     let mut mod_zip_archive = ZipArchive::new(mod_file).expect("Couldn't access mod archive");
@@ -92,4 +113,8 @@ fn unzip_folder(zipped_mod_folder: &PathBuf) -> Result<PathBuf, Error> {
     
     mod_zip_archive.extract(&extraction_target_folder).expect("Error while extracting mod archive");
     Ok(extraction_target_folder)
+}
+
+fn save_mod_data(mod_data: Mod) -> Result<(), Box<dyn Error>> {
+	Ok(())
 }

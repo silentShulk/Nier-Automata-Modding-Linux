@@ -6,10 +6,12 @@ use std::error::Error;
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 
-mod mod_managing;
 mod checks;
 use checks::{check_path, ask_for_correct_gamepath, check_for_required_modding_files, missing_files_warning, run_auto_install_script};
+mod mod_managing;
 use crate::mod_managing::features::*;
+
+
 
 // Path for the json file containing data on game's path and installed mods
 const DATA_FILE_PATH: &str = "~/.config/ATA/data.json";
@@ -177,9 +179,9 @@ fn main() {
             std::process::exit(1);
         }
     }
-
-
-
+    
+    
+    
     /* -------------------- */
     /*   USER INTERACTION   */
     /* -------------------- */
@@ -190,7 +192,13 @@ fn main() {
 
         // Starting one of the features
         if action_id == "1" {
-        	install_mod(&current_config.game_path);
+        	match install_mod(&current_config.game_path) {
+         		Ok(_) => println!("MOD INSTALLED"),
+           		Err(er) => {
+             		eprintln!("There was a problem installing the mod. {}", er);
+               		std::process::exit(1);
+                }
+         	}
         }
         else if action_id == "2" {
         	uninstall_mod(&current_config.game_path);
