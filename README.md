@@ -11,6 +11,8 @@ This is a tutorial and script utility for modding NieR: Automata on Linux.
 > If you find that it works for your distribution then please update the `README.md`
 > with this information or inform the maintainer.
 
+### When copying the repo, ignore the ATA folder
+
 ## Methods
 
 There are two ways to install the dependencies. You can either:
