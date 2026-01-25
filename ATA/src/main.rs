@@ -142,41 +142,33 @@ fn main() {
     
 
     // CHECKING IF REQUIRED MODDING FILES ARE INSTALLED
-    match check_for_required_modding_files(&current_config.game_path) {
-        Ok(files_present) => {
-            if files_present {
-                println!("Required modding files are already present. That's good!")
-            }
-            else {
-                match missing_files_warning() {
-                    Ok(user_ans) => {
-                        if user_ans {
-                            match run_auto_install_script() {
-                                Ok(ext_st) => println!("Installation of required modding files completed with exit status. {}", ext_st),
-                                Err(er) => {
-                                    println!("There was a problem installing the required modding files. {}\n
-                                    ATA will now close", er);
-                                    std::process::exit(1)
-                                }
-                            }
-                        }
-                        else {
-                            print!("Cannot continue without the required modding files, ATA will now close...");
+    let missing_required_modding_files = check_for_required_modding_files(&current_config.game_path);
+    if missing_required_modding_files.len() == 0 {
+       	println!("All of the required modding files are present. That's good!")
+    }
+    else {
+        match missing_files_warning(missing_required_modding_files) {
+            Ok(user_ans) => {
+            	if user_ans {
+                    match run_auto_install_script() {
+                        Ok(ext_st) => println!("Installation of required modding files completed with exit status. {}", ext_st),
+                        Err(er) => {
+                            println!("There was a problem installing the required modding files. {}\n
+                            ATA will now close", er);
                             std::process::exit(1)
                         }
                     }
-                    Err(er) => {
-                        eprint!("There was a problem writing/reading in console. {}\n
-                        ATA will now close", er);
-                        std::process::exit(1);
-                    }
+                }
+                else {
+                    print!("Cannot continue without the required modding files, ATA will now close...");
+                    std::process::exit(1)
                 }
             }
-        }
-        Err(er) => {
-            eprint!("There was a problem while checking if required modding files were already installed on your system. {}\n
-            ATA will now close", er);
-            std::process::exit(1);
+            Err(er) => {
+                eprint!("There was a problem writing/reading in console. {}\n
+                ATA will now close", er);
+                std::process::exit(1);
+            }
         }
     }
     

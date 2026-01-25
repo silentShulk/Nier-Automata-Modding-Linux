@@ -45,54 +45,36 @@ pub fn ask_for_correct_gamepath(wrong_path: &mut PathBuf) -> Result<PathBuf, std
 }
 
 // CHECKING IF REQUIRED MODDING FILES ARE ALREADY PRESENT
-pub fn check_for_required_modding_files(game_path: &PathBuf)-> Result<bool, Box<dyn Error>> {
-    let game_files = read_dir(game_path)?; // Get the files in the game's directory
+pub fn check_for_required_modding_files(game_path: &PathBuf) -> Vec<PathBuf> {
+    let required_files = [
+        "NieRAutomata.exe",
+        "d3d11.dll",
+    ];
 
-    // List of required modding files
-    let mut required_modding_files_needed = HashMap::from([
-        (
-            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata(original).exe",), // Original NieRAutomata exe with name changed according to my standards
-            true,
-        ),
-        (
-            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/NieRAutomata.exe",), // Modded game exe, both original and modded need to be present
-            true,
-        ),
-        (
-            PathBuf::from("$HOME/.local/share/Steam/steamapps/common/NieRAutomata/d3d11.dll"), // SpecialK dll
-            true,
-        ),
-    ]);
-
-    // Check which of the required modding files are present in the game's directory
-    for entry in game_files {
-        let entry_path = entry?.path();
-        if required_modding_files_needed.contains_key(&entry_path) {
-            required_modding_files_needed
-                .entry(entry_path)
-                .and_modify(|val| *val = !*val);
-        }
-    }
-
-    let modding_files_present = required_modding_files_needed
-        .values()
-        .all(|&val| val == false);
-
-    Ok(modding_files_present)
+    let missing_files: Vec<PathBuf> = required_files
+        .iter()
+        .map(|&file| game_path.join(file))
+        .filter(|path| !path.exists())
+        .collect();
+    
+    missing_files
 }
 
 // IF MODDING FILES AREN'T PRESENT, WARN THE USER
-pub fn missing_files_warning() -> Result<bool, std::io::Error> {
-    println!(
-        "Required modding files are missing, you need to install them if you want to mod the game"
-    );
+pub fn missing_files_warning(missing_files: Vec<PathBuf>) -> Result<bool, std::io::Error> {
+	for missing_file in missing_files {
+		println!("{:?} is missing", missing_file)
+	}
+    println!("You need to install this files if you want to mod the game");
+    
     print!("Start installation of required modding files? [Y/n]");
     stdout().flush()?;
 
     let mut answer = String::new();
     stdin().read_line(&mut answer)?;
+    let answer = answer.trim();
     
-    if answer.trim() == "Y" || answer.trim() == "y"  || answer.trim() == "" {
+    if answer.is_empty() || answer.eq_ignore_ascii_case("y") {
         Ok(true)
     } else {
         Ok(false)

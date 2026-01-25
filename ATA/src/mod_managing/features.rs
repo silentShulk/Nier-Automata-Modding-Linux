@@ -78,41 +78,53 @@ pub fn uninstall_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Err
 /*   MOD TYPE RECOGNITION   */
 /* ------------------------ */
 
-fn check_mod_type(zip_path: PathBuf) -> Option<(ModType, PathBuf)> {
-    let mod_folder_path = unzip_folder(&zip_path).expect("Couldn't extract compressed folder");
+fn check_mod_type(zip_path: PathBuf) -> Result<Option<(ModType, PathBuf)>, Box<dyn Error>> {
+    let mod_folder_path = unzip_folder(&zip_path)?;
     
     for entry in WalkDir::new(&mod_folder_path) {
-        let current_entry = entry.expect("Couldn't read one of the files/folders");
+        let current_entry = entry?;
+        let entry_path = current_entry.path();
         
-        if current_entry.file_type().is_file() {
-            match current_entry.path().extension().expect("Found extensionless file, there shouldn't be an extensionless file in a mod").to_str().expect("One of the files contains invalid unicode characters in its name") {
-                ".dss" => return Some((ModType::Textures, mod_folder_path.parent().unwrap().to_path_buf())),
-                "dtt" | ".dat" =>  {
-                    if current_entry.file_name().to_str().unwrap().starts_with("pl") {
-                        return Some((ModType::PlayerModels, mod_folder_path.parent().unwrap().to_path_buf()));
-                    } else if current_entry.file_name().to_str().unwrap().starts_with("wp") {
-                        return Some((ModType::WeaponModels, mod_folder_path.parent().unwrap().to_path_buf()));
-                    } else if current_entry.file_name().to_str().unwrap().starts_with("bg") {
-                        return Some((ModType::WorldModels, mod_folder_path.parent().unwrap().to_path_buf()));
-                    }
-                },
-                ".usm" => return Some((ModType::CutsceneReplacements, mod_folder_path.parent().unwrap().to_path_buf())),
-                _ => {}
-            } // RESHADE
-        }
+        if !current_entry.file_type().is_file() {
+           	continue
+        } 
+        let Some(extension) = entry_path.extension() else {
+            println!("{:?} is an extensionless file, therefore it will be skipped", entry_path);
+            continue;
+        };
+        let Some(ext_str) = extension.to_str() else {
+       		println!("{:?} contains invalid UTF-8 in its name, therefore it will be skipped", entry_path);
+         	continue;
+        };
+              
+        let mod_type = match ext_str {
+            "dss" => ModType::Textures,
+            "dtt" | "dat" => {
+                let name = entry_path.file_name();
+                match name {
+                    Some("pl") => ModType::PlayerModels,
+                    "wp" => ModType::WeaponModels,
+                    "bg" => ModType::WorldModels,
+                    _ => continue,
+                }
+            }
+            "usm" => ModType::CutsceneReplacements,
+            _ => ()
+        }; // RESHADE
     }
     
-    return None;
+    Ok(None)
 }
-
+    
 fn unzip_folder(zipped_mod_folder: &PathBuf) -> Result<PathBuf, Box<dyn Error>> {
-    let mod_file = File::open(zipped_mod_folder).expect("Couldn't access mod archive");
+    let mod_file = File::open(zipped_mod_folder)?;
+    let mut mod_zip_archive = ZipArchive::new(mod_file)?;
+    let extraction_target_folder = zipped_mod_folder
+    	.parent()
+     	.ok_or("Cannot find parent directory")?;
     
-    let mut mod_zip_archive = ZipArchive::new(mod_file).expect("Couldn't access mod archive");
-    let extraction_target_folder = PathBuf::from(zipped_mod_folder.parent().expect("Error while extracting archive into same parent directory (couldn't find parent directory)"));
-    
-    mod_zip_archive.extract(&extraction_target_folder).expect("Error while extracting mod archive");
-    Ok(extraction_target_folder)
+    mod_zip_archive.extract(&extraction_target_folder)?;
+    Ok(extraction_target_folder.to_path_buf())
 }
 
 fn save_mod_data(mod_data: Mod) -> Result<(), Box<dyn Error>> {
