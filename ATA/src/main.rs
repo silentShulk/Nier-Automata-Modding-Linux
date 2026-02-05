@@ -99,7 +99,7 @@ impl Default for Config {
 
 
 fn main() {
-    println!("WELCOME TO ACCORD'S TMELINE ALTERER\n(AUTOMATA'S MOD MANAGER FOR LINUX)");
+    println!("WELCOME TO ACCORD'S TIMELINE ALTERER\n(AUTOMATA'S MOD MANAGER FOR LINUX)");
 
 
 
@@ -185,7 +185,14 @@ fn main() {
         // Starting one of the features
         if action_id == "1" {
         	match install_mod(&current_config.game_path) {
-         		Ok(_) => println!("MOD INSTALLED"),
+         		Ok(m) => {
+                    println!("MOD INSTALLED");
+                    save_mod_data(m).or_else(|er| {
+                        println!("There was an error saving the data of the installed mod to the data file (~/.config/ATA/data.json). {}", er);
+                        std::process::exit(1);
+                    })
+                    
+                } 
            		Err(er) => {
              		eprintln!("There was a problem installing the mod. {}", er);
                		std::process::exit(1);
@@ -210,9 +217,9 @@ fn main() {
 
 
 
-/* ---------------------- */
-/*   USER ACTION CHOICE   */
-/* ---------------------- */
+/* ----- */
+/*   a   */
+/* ----- */
 
 fn ask_user_action(action_id: &mut String) {
     // Asking what the user wants to do
@@ -226,6 +233,10 @@ fn ask_user_action(action_id: &mut String) {
 
     // Getting the user's action's id
     stdin().read_line(action_id).expect("Failed to read answer");
+}
+
+fn save_mod_data(mod_data: Mod) -> Result<(), Box<dyn Error>> {
+	Ok(())
 }
 
 

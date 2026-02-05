@@ -16,7 +16,8 @@ use crate::*;
 /*   MOD INSTALLATION   */
 /* -------------------- */
 
-pub fn install_mod(game_path: &PathBuf) -> Result<(), Box<dyn Error>> {
+pub fn install_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn Error>> {
+    // Ask the user for mod path
     println!("To install a mod type the path to the compressed folder of a mod you downloaded\n\
             IT HAS TO BE A COMPRESSED FOLDER (.zip, .7z, .rar)");
     print!("Insert path >> ");
@@ -26,44 +27,29 @@ pub fn install_mod(game_path: &PathBuf) -> Result<(), Box<dyn Error>> {
     stdin().read_line(&mut answer)?;
     let answered_path = PathBuf::from(answer.trim());
     
-    if answered_path.exists() {
-        let mut mod_path = unzip_folder(&answered_path)?;
-        
-        let mod_type = check_mod_type(&mut mod_path)?
-        	.ok_or("The given path doesn't contain a mod")?;
-        
-        match mod_type {
-           	ModType::Textures => {
-                let installed_mod = install_texture(mod_path, game_path)?;
-                save_mod_data(installed_mod);
-            }
-           	ModType::PlayerModels => {
-                let installed_mod = install_player_model(mod_path, game_path)?;
-                save_mod_data(installed_mod);
-            }
-           	ModType::WeaponModels => {
-            	let installed_mod = install_weapon_model(mod_path, game_path)?;
-            	save_mod_data(installed_mod);
-            }
-           	ModType::WorldModels => {
-            	let installed_mod = install_world_model(mod_path, game_path)?;
-            	save_mod_data(installed_mod);
-            }
-            ModType::CutsceneReplacements => {
-            	let installed_mod = install_cutscene_replacements(mod_path, game_path)?;
-            	save_mod_data(installed_mod);
-            }
-            ModType::ReshadePreset => {
-            	let installed_mod = install_reshade_preset(mod_path, game_path)?;
-            	save_mod_data(installed_mod);
-            }
-        }
-        
-        Ok(())
-    } 
-    else {
-        Err("Mod path does not exist".into())
+    // Check if it exists
+    if !answered_path.exists() {
+        return Err("Mod path does not exist".into());
     }
+    
+    // Unzip the mod folder
+    let mut mod_path = unzip_folder(&answered_path)?;
+    
+    // Get the type of mod containd
+    let mod_type = check_mod_type(&mut mod_path)?
+       	.ok_or("The given path doesn't contain a mod")?;
+    
+    // Install the mod contained in the folder following the correct installation method
+    let installed_mod = match mod_type.0 {
+       	ModType::Textures => install_texture(mod_path, game_path)?,
+       	ModType::PlayerModels => install_player_model(mod_path, game_path)?,
+       	ModType::WeaponModels => install_weapon_model(mod_path, game_path)?,
+       	ModType::WorldModels => install_world_model(mod_path, game_path)?,
+        ModType::CutsceneReplacements => install_cutscene_replacements(mod_path, game_path)?,
+        ModType::ReshadePreset => install_reshade_preset(mod_path, game_path)?,
+    };
+    
+    Ok(installed_mod)
 }
 
 
@@ -82,17 +68,22 @@ pub fn uninstall_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Err
 /*   MOD TYPE RECOGNITION   */
 /* ------------------------ */
 
-fn check_mod_type(mod_folder_path: &mut PathBuf) -> Result<Option<ModType>, Box<dyn Error>> {
-    let mut contains_mod: Option<ModType> = None;
+fn check_mod_type(mod_folder_path: &mut PathBuf) -> Result<Option<(ModType, PathBuf)>, Box<dyn Error>> {
+    // Define variables that will be returned
+    let mut mod_files_path: Option<PathBuf> = None;
+    let mut mod_contained: Option<ModType> = None;
     
+    // Start lookking at the contents of mod folder
     for entry in WalkDir::new(&mod_folder_path) {
         let current_entry = entry?;
+        let entry_path = current_entry.path();
+        
+        // Skip directories
         if !current_entry.file_type().is_file() {
            	continue
-        } 
-        
-        let entry_path = current_entry.path();
-        let extension = match check_mod_file(entry_path) {
+        }         
+        // Get file extension
+        let extension = match get_file_extension(entry_path) {
             Ok(ext) => ext,
             Err(err) => {
                 eprintln!("{}", err);
@@ -100,9 +91,10 @@ fn check_mod_type(mod_folder_path: &mut PathBuf) -> Result<Option<ModType>, Box<
             }
         };
         
-        mod_folder_path = &entry_path.to_path_buf();
+        // Update mod_files_path
+        mod_files_path = Some(entry_path.to_path_buf());
         
-        contains_mod = match extension {
+        mod_contained = match extension {
             "dss" => Some(ModType::Textures),
             "dtt" | "dat" => {
                 let Some(name) = entry_path.file_name() else {
@@ -123,10 +115,7 @@ fn check_mod_type(mod_folder_path: &mut PathBuf) -> Result<Option<ModType>, Box<
         break;
     }
     
-    match contains_mod {
-        Some(mod_type) => Ok(Some((mod_type, mod_files_path))),
-        None => Ok(None),
-    }
+    Ok(mod_contained.zip(mod_files_path))
 }
     
 fn unzip_folder(zipped_mod_folder: &PathBuf) -> Result<PathBuf, Box<dyn Error>> {
@@ -140,17 +129,14 @@ fn unzip_folder(zipped_mod_folder: &PathBuf) -> Result<PathBuf, Box<dyn Error>> 
     Ok(extraction_target_folder.to_path_buf())
 }
 
-fn check_mod_file(entry_path: &Path) -> Result<&str, String> {
+fn get_file_extension(entry_path: &Path) -> Result<&str, String> {
     let Some(extension) = entry_path.extension() else {
         return Err(String::from(format!("{:?} is an extensionless file, therefore it will be skipped", entry_path)));
     };
-    let Some(ext_str) = extension.to_str() else {
+    let Some(extension_str) = extension.to_str() else {
        	return Err(String::from(format!("{:?} contains invalid UTF-8 in its extension, therefore it will be skipped", entry_path)));
     };
     
-    Ok(ext_str)
+    Ok(extension_str)
 }
 
-fn save_mod_data(mod_data: Mod) -> Result<(), Box<dyn Error>> {
-	Ok(())
-}
