@@ -99,7 +99,7 @@ impl Default for Config {
 
 
 fn main() {
-    println!("WELCOME TO ACCORD'S TIMELINE ALTERER\n(AUTOMATA'S MOD MANAGER FOR LINUX)");
+    println!("WELCOME TO ACCORD'S TIMELINE ALTERER\n(AUTOMATA'S MOD MANAGER FOR LINUX)\n\n");
 
 
 
@@ -110,12 +110,12 @@ fn main() {
     // LOAD DATA IF PRESENT
     let mut current_config = Config::load_config()
     .unwrap_or_else(|| {
-        println!("No data file found (maybe it's the first time you use this program?), defaulting to default game path...");
+        println!("No data file found (maybe it's the first time you use this program?), defaulting to default game path...\n");
         Ok(Config::default())
     })
     .unwrap_or_else(|err| {
         eprintln!("ERROR: Failed to load data file (~/.config/ATA/data.json){}\n
-        		Consider checking if the file is there and if it isn't corrupted.\n
+        		Consider checking if the file is there and if it isn't corrupted.
                 ATA will now close...", err);
         std::process::exit(1);
     });
@@ -133,8 +133,8 @@ fn main() {
             }
         },
         Err(er) => {
-            eprint!("There was a problem checking if the given path is the actual game path.{}\n
-            ATA will now close...", er);
+            eprint!("The previously set game path ({:?}) isn't the correct one (it doesn't contain NieRAutomata.exe). {}\n
+            ATA will now close...", current_config.game_path, er);
             std::process::exit(1)
         }
     }
@@ -187,11 +187,11 @@ fn main() {
         	match install_mod(&current_config.game_path) {
          		Ok(m) => {
                     println!("MOD INSTALLED");
-                    save_mod_data(m).or_else(|er| {
+                    
+                    save_mod_data(m).unwrap_or_else(|er| {
                         println!("There was an error saving the data of the installed mod to the data file (~/.config/ATA/data.json). {}", er);
                         std::process::exit(1);
-                    })
-                    
+                    });
                 } 
            		Err(er) => {
              		eprintln!("There was a problem installing the mod. {}", er);

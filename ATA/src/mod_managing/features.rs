@@ -2,10 +2,9 @@ use std::{self, io::Write};
 use std::fs::File;
 use std::path::{Path, PathBuf};
 use std::error::Error;
-use std::ffi::OsStr;
 use zip::ZipArchive;
 use std::io::{stdin, stdout};
-use walkdir::{DirEntry, WalkDir};
+use walkdir::WalkDir;
 
 use super::installation_methods::*;
 use crate::*;
