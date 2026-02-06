@@ -33,20 +33,19 @@ pub fn install_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn Error>> {
     }
     
     // Unzip the mod folder
-    let mut mod_path = unzip_folder(&answered_path)?;
+    let mut mod_folder_path = unzip_folder(&answered_path)?;
     
     // Get the type of mod containd
-    let mod_type = check_mod_type(&mut mod_path)?
+    let mod_data = check_mod_type(&mut mod_folder_path)?
        	.ok_or("The given path doesn't contain a mod")?;
-    
     // Install the mod contained in the folder following the correct installation method
-    let installed_mod = match mod_type.0 {
-       	ModType::Textures => install_texture(mod_path, game_path)?,
-       	ModType::PlayerModels => install_player_model(mod_path, game_path)?,
-       	ModType::WeaponModels => install_weapon_model(mod_path, game_path)?,
-       	ModType::WorldModels => install_world_model(mod_path, game_path)?,
-        ModType::CutsceneReplacements => install_cutscene_replacements(mod_path, game_path)?,
-        ModType::ReshadePreset => install_reshade_preset(mod_path, game_path)?,
+    let installed_mod = match mod_data.0 {
+       	ModType::Textures => install_texture(mod_folder_path, game_path)?,
+       	ModType::PlayerModels => install_player_model(mod_folder_path, game_path)?,
+       	ModType::WeaponModels => install_weapon_model(mod_folder_path, game_path)?,
+       	ModType::WorldModels => install_world_model(mod_folder_path, game_path)?,
+        ModType::CutsceneReplacements => install_cutscene_replacements(mod_folder_path, game_path)?,
+        ModType::ReshadePreset => install_reshade_preset(mod_folder_path, game_path)?,
     };
     
     Ok(installed_mod)
@@ -73,16 +72,16 @@ fn check_mod_type(mod_folder_path: &mut PathBuf) -> Result<Option<(ModType, Path
     let mut mod_files_path: Option<PathBuf> = None;
     let mut mod_contained: Option<ModType> = None;
     
-    // Start lookking at the contents of mod folder
+    // Start looking at the contents of mod folder
     for entry in WalkDir::new(&mod_folder_path) {
         let current_entry = entry?;
         let entry_path = current_entry.path();
         
-        // Skip directories
+        // Skip folders
         if !current_entry.file_type().is_file() {
            	continue
         }         
-        // Get file extension
+        // Get current entry file extension
         let extension = match get_file_extension(entry_path) {
             Ok(ext) => ext,
             Err(err) => {
@@ -90,29 +89,35 @@ fn check_mod_type(mod_folder_path: &mut PathBuf) -> Result<Option<(ModType, Path
                 continue;
             }
         };
-        
-        // Update mod_files_path
-        mod_files_path = Some(entry_path.to_path_buf());
-        
+
+        // For each valid entry check if it is the file of a mod
         mod_contained = match extension {
             "dss" => Some(ModType::Textures),
             "dtt" | "dat" => {
                 let Some(name) = entry_path.file_name() else {
-                    println!("{:?} either contains invalid Unicode in its name or is nameless and will therefore be skipped", entry_path);
+                    println!("\"{:?}\" is a path that ends in .. (parent directory) or . (current directory), and will therefore be skipped", entry_path);
                     continue;
                 };
                 match name.to_str() {
                     Some("pl") => Some(ModType::PlayerModels),
                     Some("wp") => Some(ModType::WeaponModels),
                     Some("bg") => Some(ModType::WorldModels),
-                    Some(_) | None => continue,
+                    Some(_) => None,
+                    None => {
+                        println!("\"{:?}\" contains invalid Unicode in its name and will therefore will be skipped", entry_path);
+                        continue;
+                    }
                 }
             }  // RESHADE
             "usm" => Some(ModType::CutsceneReplacements),
             _ => None,
         };
-        
-        break;
+
+        if mod_contained.is_some() {
+            // Update mod_files_path
+            mod_files_path = Some(entry_path.to_path_buf());
+            break;
+        }
     }
     
     Ok(mod_contained.zip(mod_files_path))
