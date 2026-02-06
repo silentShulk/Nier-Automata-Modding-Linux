@@ -1,10 +1,13 @@
 use std::fs::File;
-use std::io::{BufReader, stdin};
+use std::io::{BufReader, Write, stdin};
 use std::path::PathBuf;
 use std::error::Error;
+use std::env::var;
+use std::fs::create_dir_all;
 //use clap::{Arg, ArgAction}; // Will be used to add arguments
 use clap::Parser;
 use serde::{Deserialize, Serialize};
+use serde_json::to_string_pretty;
 
 mod checks;
 use checks::{check_path, ask_for_correct_gamepath, check_for_required_modding_files, missing_files_warning, run_auto_install_script};
@@ -86,8 +89,12 @@ impl Config {
 }
 impl Default for Config {
     fn default() -> Self {
+        let home_dir = var("HOME").unwrap_or(String::from("/home/2B/"));
+        
         Self {
-            game_path: PathBuf::from("~/.local/share/Steam/steamapps/common/NieRAutomata"),
+            game_path: PathBuf::from(
+                format!("{}/.local/share/Steam/steamapps/common/NieRAutomata", home_dir)
+            ),
             mods: Default::default(),
         }
     }
@@ -99,7 +106,7 @@ impl Default for Config {
 
 
 fn main() {
-    println!("WELCOME TO ACCORD'S TIMELINE ALTERER\n(AUTOMATA'S MOD MANAGER FOR LINUX)\n\n");
+    println!("\nWELCOME TO ACCORD'S TIMELINE ALTERER\n(AUTOMATA'S MOD MANAGER FOR LINUX)\n\n");
 
 
 
@@ -111,12 +118,26 @@ fn main() {
     let mut current_config = Config::load_config()
     .unwrap_or_else(|| {
         println!("No data file found (maybe it's the first time you use this program?), defaulting to default game path...\n");
+        
+        let mut data_file: String = var("HOME")
+            .unwrap_or(String::from("/home/2B/"));
+        data_file.push_str(".config/ATA/data.json");
+        let data_file_path = PathBuf::from(data_file);
+        
+        if let Some(ata_folder) = data_file_path.parent() {
+            create_dir_all(ata_folder)?;
+        }
+        let mut data_file = File::create(&data_file_path).unwrap();
+        
+        let json_config = to_string_pretty(&Config::default()).unwrap();
+        data_file.write_all(json_config.as_bytes())?;
+        
         Ok(Config::default())
     })
     .unwrap_or_else(|err| {
-        eprintln!("ERROR: Failed to load data file (~/.config/ATA/data.json){}\n
-        		Consider checking if the file is there and if it isn't corrupted.
+        eprintln!("ERROR: Failed to load data file (~/.config/ATA/data.json). {}\nConsider checking if the file is there and if it isn't corrupted.
                 ATA will now close...", err);
+        
         std::process::exit(1);
     });
     
@@ -138,7 +159,7 @@ fn main() {
             std::process::exit(1)
         }
     }
-    println!("Game installation found at {:?}", current_config.game_path);
+    println!("Game installation found at {:?}\n", current_config.game_path);
     
 
     // CHECKING IF REQUIRED MODDING FILES ARE INSTALLED
@@ -160,7 +181,8 @@ fn main() {
                     }
                 }
                 else {
-                    print!("Cannot continue without the required modding files, ATA will now close...");
+                    println!("\nCannot continue without the required modding files
+                    ATA will now close...");
                     std::process::exit(1)
                 }
             }

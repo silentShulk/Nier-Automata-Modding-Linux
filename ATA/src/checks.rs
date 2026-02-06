@@ -1,4 +1,3 @@
-use std::collections::hash_map::HashMap;
 use std::fs::read_dir;
 use std::io::Write;
 use std::io::{stdin, stdout};
@@ -6,6 +5,7 @@ use std::path::PathBuf;
 use std::process::Command;
 use std::error::Error;
 use std::process::ExitStatus;
+use std::env::var;
 //use clap::{Arg, ArgAction}; // Will be used to add arguments
 
 
@@ -65,9 +65,9 @@ pub fn missing_files_warning(missing_files: Vec<PathBuf>) -> Result<bool, std::i
 	for missing_file in missing_files {
 		println!("{:?} is missing", missing_file)
 	}
-    println!("You need to install this files if you want to mod the game");
+    println!("You need to install this file(s) if you want to mod the game");
     
-    print!("Start installation of required modding files? [Y/n]");
+    print!("Start installation of required modding files? [Y/n] ");
     stdout().flush()?;
 
     let mut answer = String::new();
@@ -83,14 +83,10 @@ pub fn missing_files_warning(missing_files: Vec<PathBuf>) -> Result<bool, std::i
 
 // IF THE USER WANTS TO, INSTALL THE FILES
 pub fn run_auto_install_script() -> Result<ExitStatus, Box<dyn Error>> {
-    let script_path = PathBuf::from("/usr/local/bin/ATA/install-prerequisites.sh");
+    let home_dir = var("HOME").unwrap_or(String::from("/home/2B/"));
+    let script_path = PathBuf::from(format!("{}/.local/share/ATA/install-prerequisites.sh", home_dir));
 
-    print!("Insert the name of terminal emulator:");
-    stdout().flush()?;
-    let mut answer = String::new();
-    stdin().read_line(&mut answer)?;
-
-    let status = Command::new(answer)
+    let status = Command::new("xdg-terminal-exec")
         .arg("-e")
         .arg("bash")
         .arg(&script_path)
