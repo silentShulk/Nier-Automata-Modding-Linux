@@ -63,7 +63,7 @@ pub fn missing_files_warning(missing_files: Vec<PathBuf>) -> Result<bool, std::i
 	for missing_file in missing_files {
 		println!("{:?} is missing", missing_file)
 	}
-    println!("You need to install this file(s) if you want to mod the game");
+    println!("You need to install the file(s) if you want to mod the game");
     
     print!("Start installation of required modding files? [Y/n] ");
     stdout().flush()?;
@@ -72,11 +72,7 @@ pub fn missing_files_warning(missing_files: Vec<PathBuf>) -> Result<bool, std::i
     stdin().read_line(&mut answer)?;
     let answer = answer.trim();
     
-    if answer.is_empty() || answer.eq_ignore_ascii_case("y") {
-        Ok(true)
-    } else {
-        Ok(false)
-    }
+    Ok(answer.is_empty() || answer.eq_ignore_ascii_case("y"))
 }
 
 // IF THE USER WANTS TO, INSTALL THE FILES

@@ -60,37 +60,36 @@ impl Config {
     //     Ok(())
     // }
 
-    // Load the config from file
+    // Load the config from file, or load a default one
     fn load_config() -> Result<Self, Box<dyn Error>>
-    // Returns Some if the file exists, None if it doesn't
-    // If the file exists it, the Some can contain
-    // Ok(config), Err(error generated while trying to access the file)
     {
         let home_dir = var("HOME").unwrap_or(String::from("/home/2B/"));
-        let data_file_path = PathBuf::from(format!("{}.config/ATA/data.json", home_dir));
+        let data_file_path = PathBuf::from(home_dir)
+            .join(".config")
+            .join("ATA")
+            .join("data.json");
 
         if data_file_path.exists() {
             let data_file = File::open(data_file_path)?;
             let reader = BufReader::new(data_file);
             let contents = serde_json::from_reader(reader)?;
 
-            println!("Config file (~/.config/ATA/data.json) loaded");
-
             Ok(contents)
         }
         else {
-            println!("Config file (~/.config/ATA/data.json) not found, creating it with default values");
+            println!("Config file (~/.config/ATA/data.json) not found, creating it with default values...\n");
 
             Self::create_default_config_file(data_file_path)
         }   
     }
 
-    fn create_default_config_file(path: PathBuf) -> Result<Self, std::io::Error> {
+    fn create_default_config_file(path: PathBuf) -> Result<Self, Box<dyn Error>> {
         let default_config = Self::default();
         
         if let Some(data_file_folder) = path.parent() {
             create_dir_all(data_file_folder)?;
         };
+        
         let mut default_config_file = File::create(path)?;
 
         let default_config_json = serde_json::to_string_pretty(&default_config)?;
@@ -102,7 +101,8 @@ impl Config {
 impl Default for Config {
     fn default() -> Self {
         let home_dir = var("HOME").unwrap_or(String::from("/home/2B/"));
-        let default_game_path = PathBuf::from(format!("{}.local/share/Steam/steamapps/common/NieRAutomata", home_dir));
+        let default_game_path = PathBuf::from(home_dir)
+            .join(".local/share/Steam/steamapps/common/NieRAutomata");
 
         Self {
             game_path: default_game_path,
@@ -126,78 +126,81 @@ fn main() {
     /* ------------------- */
 
     // LOAD DATA IF PRESENT
-    let current_config = Config::load_config()
+    println!("Loading data file (~/.config/ATA/data.json)");
+    
+    let mut current_config = Config::load_config()
     .unwrap_or_else(|err| {
-        eprintln!("ERROR: Failed to load data file (~/.config/ATA/data.json). {}\nConsider checking if the file is there and if it isn't corrupted.
+        eprintln!("There was a problem accessing the data file (~/.config/ATA/data.json). {}\nConsider checking if the file is there and if it isn't corrupted.
                 ATA will now close...", err);
         
         std::process::exit(1);
     });
-
-
-
-
-
-    // SIGMASIGMA
-
-
-
+    
+    println!("Config file (~/.config/ATA/data.json) loaded!\n");
     
     // CHECKING GAME PATH LOCATION
-    match check_path(&current_config.game_path) {
-        Ok(check_result) => {
-            if !check_result {
-                println!("Game installation not found at: {:?}", &current_config.game_path);
-
-                ask_for_correct_gamepath()
-                    .unwrap_or_else(|er| {
-                        eprint!("There was a problem trying to change the path. {}\n
-                        ATA will now close...", er);
-                        std::process::exit(1);
-                    });
-            }
-        },
-        Err(er) => {
-            eprint!("The previously set game path ({:?}) isn't the correct one (it doesn't contain NieRAutomata.exe). {}\n
-            ATA will now close...", current_config.game_path, er);
-            std::process::exit(1)
+    println!("Checking if the currently saved gamepath is the correct one (contains the game's files)");
+    
+    let mut path_is_valid = false;
+    while path_is_valid {
+        // Accessing the given path and checking if it actually contains the game's files
+        let is_gamepath = check_path(&current_config.game_path).unwrap_or_else(|er| {
+            println!("There has been a problem checking the given game path. {}
+                    ATA will now close...", er);
+            
+            std::process::exit(1);
+        });
+        
+        // If the path is incorrect, ask the user for another one
+        if !is_gamepath {
+            println!("Game installation not found at {:?} (it doesn't contain NieRAutomata.exe)", current_config.game_path);
+            
+            current_config.game_path = ask_for_correct_gamepath()
+                .unwrap_or_else(|er| {
+                    println!("There has been a problem trying to change the game path. {}
+                            ATA will now close...", er);
+                    
+                    std::process::exit(1);
+                });
         }
+        
+        path_is_valid = is_gamepath;
     }
+        
     println!("Game installation found at {:?}\n", current_config.game_path);
-    
 
-    // CHECKING IF REQUIRED MODDING FILES ARE INSTALLED
-    let missing_required_modding_files = check_for_required_modding_files(&current_config.game_path);
-    if missing_required_modding_files.len() == 0 {
-       	println!("All of the required modding files are present. That's good!")
-    }
-    else {
-        match missing_files_warning(missing_required_modding_files) {
-            Ok(user_ans) => {
-            	if user_ans {
-                    match run_auto_install_script() {
-                        Ok(ext_st) => println!("Installation of required modding files completed with exit status. {}", ext_st),
-                        Err(er) => {
-                            println!("There was a problem installing the required modding files. {}\n
-                            ATA will now close", er);
-                            std::process::exit(1)
-                        }
-                    }
-                }
-                else {
-                    println!("\nCannot continue without the required modding files
-                    ATA will now close...");
-                    std::process::exit(1)
-                }
-            }
-            Err(er) => {
-                eprint!("There was a problem writing/reading in console. {}\n
-                ATA will now close", er);
-                std::process::exit(1);
-            }
-        }
-    }
+    // CHECKING IF THE REQUIRED MODDING FILES ARE INSTALLED
+    println!("Checking if the required modding files are installed");
     
+    let missing_required_modding_files = check_for_required_modding_files(&current_config.game_path);
+    if missing_required_modding_files.len() > 0 {
+        let user_answer = missing_files_warning(missing_required_modding_files)
+            .unwrap_or_else(|er| {
+                println!("There has been a problem using the console. {}
+                        ATA will now close...", er);
+                
+                std::process::exit(1);
+            });
+        
+        if user_answer {
+            run_auto_install_script().unwrap_or_else(|er| {
+                println!("There has been a problem running the installation script for the required modding files. {}
+                        ATA will now close...", er);
+                
+                std::process::exit(1);
+            });
+            
+            println!("Required modding files installed successfully!");
+        }
+        else {
+            print!("Cannot proceed further without the required modding files.
+                    ATA will now close...");
+            
+            std::process::exit(1);
+        }
+    } else {
+        println!("Required modding files already installed")
+    }
     
     
     /* -------------------- */
@@ -244,7 +247,7 @@ fn main() {
 
 
 /* ----- */
-/*   a   */
+/*   SHOULD MOVE TO USER INTERACTION FILW WITH MISSING FILES WQARING   */
 /* ----- */
 
 fn ask_user_action(action_id: &mut String) {
