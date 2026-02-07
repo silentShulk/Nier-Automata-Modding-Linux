@@ -16,9 +16,6 @@ use crate::mod_managing::features::*;
 
 
 
-// Path for the json file containing data on game's path and installed mods
-const DATA_FILE_PATH: &str = "~/.config/ATA/data.json";
-
 // The various types of mod that can be installed with ATA
 #[derive(serde::Serialize, serde::Deserialize)]
 pub enum ModType {
@@ -57,44 +54,58 @@ struct Config {
 }
 impl Config {
     // Save the config to file
-    fn save_config(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let data_file = File::create(DATA_FILE_PATH)?;
-        serde_json::to_writer_pretty(data_file, self)?;
-        Ok(())
-    }
+    // fn save_config(&self) -> Result<(), Box<dyn std::error::Error>> {
+    //     let data_file = File::create(DATA_FILE_PATH)?;
+    //     serde_json::to_writer_pretty(data_file, self)?;
+    //     Ok(())
+    // }
 
     // Load the config from file
-    fn load_config() -> Option<Result<Self, Box<dyn Error>>>
+    fn load_config() -> Result<Self, Box<dyn Error>>
     // Returns Some if the file exists, None if it doesn't
     // If the file exists it, the Some can contain
     // Ok(config), Err(error generated while trying to access the file)
     {
-        if PathBuf::from(DATA_FILE_PATH).exists() {
-            let data_file = File::open(DATA_FILE_PATH);
-            match data_file {
-                Ok(data) => {
-                    let reader = BufReader::new(data);
-                    let contents = serde_json::from_reader(reader);
-                    match contents {
-                        Ok(config) => Some(Ok(config)),
-                        Err(er) => Some(Err(Box::new(er))),
-                    }
-                }
-                Err(er) => return Some(Err(Box::new(er))),
-            }
-        } else {
-            None
+        let home_dir = var("HOME").unwrap_or(String::from("/home/2B/"));
+        let data_file_path = PathBuf::from(format!("{}.config/ATA/data.json", home_dir));
+
+        if data_file_path.exists() {
+            let data_file = File::open(data_file_path)?;
+            let reader = BufReader::new(data_file);
+            let contents = serde_json::from_reader(reader)?;
+
+            println!("Config file (~/.config/ATA/data.json) loaded");
+
+            Ok(contents)
         }
+        else {
+            println!("Config file (~/.config/ATA/data.json) not found, creating it with default values");
+
+            Self::create_default_config_file(data_file_path)
+        }   
+    }
+
+    fn create_default_config_file(path: PathBuf) -> Result<Self, std::io::Error> {
+        let default_config = Self::default();
+        
+        if let Some(data_file_folder) = path.parent() {
+            create_dir_all(data_file_folder)?;
+        };
+        let mut default_config_file = File::create(path)?;
+
+        let default_config_json = serde_json::to_string_pretty(&default_config)?;
+        default_config_file.write_all(default_config_json.as_bytes())?;
+
+        Ok(default_config)
     }
 }
 impl Default for Config {
     fn default() -> Self {
         let home_dir = var("HOME").unwrap_or(String::from("/home/2B/"));
-        
+        let default_game_path = PathBuf::from(format!("{}.local/share/Steam/steamapps/common/NieRAutomata", home_dir));
+
         Self {
-            game_path: PathBuf::from(
-                format!("{}/.local/share/Steam/steamapps/common/NieRAutomata", home_dir)
-            ),
+            game_path: default_game_path,
             mods: Default::default(),
         }
     }
@@ -115,37 +126,30 @@ fn main() {
     /* ------------------- */
 
     // LOAD DATA IF PRESENT
-    let mut current_config = Config::load_config()
-    .unwrap_or_else(|| {
-        println!("No data file found (maybe it's the first time you use this program?), defaulting to default game path...\n");
-        
-        let mut data_file: String = var("HOME")
-            .unwrap_or(String::from("/home/2B/"));
-        data_file.push_str(".config/ATA/data.json");
-        let data_file_path = PathBuf::from(data_file);
-        
-        if let Some(ata_folder) = data_file_path.parent() {
-            create_dir_all(ata_folder)?;
-        }
-        let mut data_file = File::create(&data_file_path).unwrap();
-        
-        let json_config = to_string_pretty(&Config::default()).unwrap();
-        data_file.write_all(json_config.as_bytes())?;
-        
-        Ok(Config::default())
-    })
+    let current_config = Config::load_config()
     .unwrap_or_else(|err| {
         eprintln!("ERROR: Failed to load data file (~/.config/ATA/data.json). {}\nConsider checking if the file is there and if it isn't corrupted.
                 ATA will now close...", err);
         
         std::process::exit(1);
     });
+
+
+
+
+
+    // SIGMASIGMA
+
+
+
     
     // CHECKING GAME PATH LOCATION
     match check_path(&current_config.game_path) {
         Ok(check_result) => {
             if !check_result {
-                ask_for_correct_gamepath(&mut current_config.game_path)
+                println!("Game installation not found at: {:?}", &current_config.game_path);
+
+                ask_for_correct_gamepath()
                     .unwrap_or_else(|er| {
                         eprint!("There was a problem trying to change the path. {}\n
                         ATA will now close...", er);

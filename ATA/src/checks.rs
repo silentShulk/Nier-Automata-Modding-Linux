@@ -31,11 +31,9 @@ pub fn check_path(current_path: &PathBuf) -> Result<bool, std::io::Error> {
 }
 
 // CHECKING GAME PATH LOCATION
-pub fn ask_for_correct_gamepath(wrong_path: &mut PathBuf) -> Result<PathBuf, std::io::Error> {
-    println!(
-        "Game installation not found at: {:?}", wrong_path
-    );
-    print!("Insert your game path: ");
+pub fn ask_for_correct_gamepath() -> Result<PathBuf, std::io::Error> {
+    println!("Insert the correct path to the game's executable");
+    print!("Correct path: ");
     stdout().flush()?;
 
     let mut new_path = String::new();
