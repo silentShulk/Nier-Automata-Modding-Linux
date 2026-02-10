@@ -76,21 +76,36 @@ pub fn check_mod_type(mod_folder_path: &mut PathBuf) -> Result<Option<(ModType, 
     
 pub fn unzip_folder(zipped_mod_folder: &PathBuf) -> Result<PathBuf, Box<dyn Error>> {
     let mod_file = File::open(zipped_mod_folder)?;
-    let mut mod_zip_archive = ZipArchive::new(mod_file)?;
-    let extraction_target_folder = zipped_mod_folder
+    
+    match get_file_extension(zipped_mod_folder) {
+        Ok(extension) => {
+            if extension == "zip" {
+
+            }
+        }
+        Err(er) => ()
+    }
+
+    
+}
+
+fn decompress_zip(zip_file: File, zip_file_path: PathBuf) -> Result<PathBuf, Box<dyn Error>> {
+    let mut mod_zip_archive = ZipArchive::new(zip_file)?;
+    let extraction_target_folder = zip_file_path
     	.parent()
      	.ok_or("Cannot find parent directory")?;
     
     mod_zip_archive.extract(&extraction_target_folder)?;
-    Ok(extraction_target_folder.to_path_buf())
+    
+    
 }
 
-fn get_file_extension(entry_path: &Path) -> Result<&str, String> {
-    let Some(extension) = entry_path.extension() else {
-        return Err(String::from(format!("{:?} is an extensionless file, therefore it will be skipped", entry_path)));
+fn get_file_extension(path: &Path) -> Result<&str, String> {
+    let Some(extension) = path.extension() else {
+        return Err(String::from(format!("{:?} is an extensionless file", path)));
     };
     let Some(extension_str) = extension.to_str() else {
-       	return Err(String::from(format!("{:?} contains invalid UTF-8 in its extension, therefore it will be skipped", entry_path)));
+       	return Err(String::from(format!("{:?} contains invalid UTF-8 in its extension", path)));
     };
     
     Ok(extension_str)

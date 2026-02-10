@@ -112,13 +112,13 @@ fn main() {
         println!("Required modding files already installed")
     }
     
-    
-    
     clearscreen::clear().unwrap_or_else(|er| {
         println!("There has been a problem trying to clear the terminal screeen. {}
                 ATA will now close...", er);
         std::process::exit(1);
     });
+    
+    
     
     /* -------------------------------- */
     /*   STARTING ONE OF THE FEATURES   */
