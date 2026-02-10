@@ -15,24 +15,14 @@ use crate::*;
 /*   MOD INSTALLATION   */
 /* -------------------- */
 
-pub fn install_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn Error>> {
-    // Ask the user for mod path
-    println!("To install a mod type the path to the compressed folder of a mod you downloaded\n\
-            IT HAS TO BE A COMPRESSED FOLDER (.zip, .7z, .rar)");
-    print!("Insert path >> ");
-    stdout().flush()?;
-    
-    let mut answer = String::new();
-    stdin().read_line(&mut answer)?;
-    let answered_path = PathBuf::from(answer.trim());
-    
+pub fn install_mod(game_path: &PathBuf, compressed_mod_folder_path: PathBuf) -> Result<Mod, Box<dyn Error>> {
     // Check if it exists
-    if !answered_path.exists() {
+    if !compressed_mod_folder_path.exists() {
         return Err("Mod path does not exist".into());
     }
     
     // Unzip the mod folder
-    let mut mod_folder_path = unzip_folder(&answered_path)?;
+    let mut mod_folder_path = unzip_folder(&compressed_mod_folder_path)?;
     
     // Get the type of mod containd
     let mod_data = check_mod_type(&mut mod_folder_path)?

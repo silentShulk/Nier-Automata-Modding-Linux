@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{BufReader, Write, stdin};
+use std::io::{BufReader, Write, stdin, stdout};
 use std::path::PathBuf;
 use std::error::Error;
 use std::env::var;
@@ -7,7 +7,6 @@ use std::fs::create_dir_all;
 //use clap::{Arg, ArgAction}; // Will be used to add arguments
 use clap::Parser;
 use serde::{Deserialize, Serialize};
-use serde_json::to_string_pretty;
 
 mod checks;
 use checks::{check_path, ask_for_correct_gamepath, check_for_required_modding_files, missing_files_warning, run_auto_install_script};
@@ -138,14 +137,16 @@ fn main() {
     
     println!("Config file (~/.config/ATA/data.json) loaded!\n");
     
+    
+    
     // CHECKING GAME PATH LOCATION
     println!("Checking if the currently saved gamepath is the correct one (contains the game's files)");
     
     let mut path_is_valid = false;
-    while path_is_valid {
+    while !path_is_valid {
         // Accessing the given path and checking if it actually contains the game's files
         let is_gamepath = check_path(&current_config.game_path).unwrap_or_else(|er| {
-            println!("There has been a problem checking the given game path. {}
+            eprintln!("There has been a problem checking the given game path. {}
                     ATA will now close...", er);
             
             std::process::exit(1);
@@ -157,7 +158,7 @@ fn main() {
             
             current_config.game_path = ask_for_correct_gamepath()
                 .unwrap_or_else(|er| {
-                    println!("There has been a problem trying to change the game path. {}
+                    eprintln!("There has been a problem trying to change the game path. {}
                             ATA will now close...", er);
                     
                     std::process::exit(1);
@@ -169,6 +170,8 @@ fn main() {
         
     println!("Game installation found at {:?}\n", current_config.game_path);
 
+    
+    
     // CHECKING IF THE REQUIRED MODDING FILES ARE INSTALLED
     println!("Checking if the required modding files are installed");
     
@@ -176,7 +179,7 @@ fn main() {
     if missing_required_modding_files.len() > 0 {
         let user_answer = missing_files_warning(missing_required_modding_files)
             .unwrap_or_else(|er| {
-                println!("There has been a problem using the console. {}
+                eprintln!("There has been a problem using the console to warn you about the missing required modding files. {}
                         ATA will now close...", er);
                 
                 std::process::exit(1);
@@ -184,7 +187,7 @@ fn main() {
         
         if user_answer {
             run_auto_install_script().unwrap_or_else(|er| {
-                println!("There has been a problem running the installation script for the required modding files. {}
+                eprintln!("There has been a problem running the installation script for the required modding files. {}
                         ATA will now close...", er);
                 
                 std::process::exit(1);
@@ -193,7 +196,7 @@ fn main() {
             println!("Required modding files installed successfully!");
         }
         else {
-            print!("Cannot proceed further without the required modding files.
+            eprint!("Cannot proceed further without the required modding files.
                     ATA will now close...");
             
             std::process::exit(1);
@@ -203,42 +206,56 @@ fn main() {
     }
     
     
+    
     /* -------------------- */
     /*   USER INTERACTION   */
     /* -------------------- */
 
     let mut action_id = String::from("");
     while action_id != "0" {
-        ask_user_action(&mut action_id);
+        action_id = ask_user_action().unwrap_or_else(|er| {
+            eprintln!("There has been a problem using the console to ask you what you want to do. {}
+                    ATA will now close...", er);
+            
+            std::process::exit(1);
+        });
 
-        // Starting one of the features
+        // INSTALL A MOD
         if action_id == "1" {
-        	match install_mod(&current_config.game_path) {
-         		Ok(m) => {
-                    println!("MOD INSTALLED");
+            let answered_path = ask_for_mod_folder().unwrap_or_else(|er| {
+                eprintln!("There was a problem using the console for asking for the compressed mod folder. {}
+                        ATA will now close...", er);
+
+                std::process::exit(1);
+            });
+
+        	let installed_mod = install_mod(&current_config.game_path, answered_path).unwrap_or_else(|er| {
+             	eprintln!("There was a problem installing the mod. {}", er);
+               	std::process::exit(1);
+            });
+            println!("MOD INSTALLED");
                     
-                    save_mod_data(m).unwrap_or_else(|er| {
-                        println!("There was an error saving the data of the installed mod to the data file (~/.config/ATA/data.json). {}", er);
-                        std::process::exit(1);
-                    });
-                } 
-           		Err(er) => {
-             		eprintln!("There was a problem installing the mod. {}", er);
-               		std::process::exit(1);
-                }
-         	}
+            save_mod_data(installed_mod).unwrap_or_else(|er| {
+                println!("There was an error saving the data of the installed mod to the data file (~/.config/ATA/data.json). {}", er);
+                std::process::exit(1);
+            });
         }
+        // UNINSTALL A MOD
         else if action_id == "2" {
         	uninstall_mod(&current_config.game_path);
         } 
-        else if action_id == "0" {
-            println!("Happy Automata");
-            std::process::exit(1);
+        // PRINT THE LIST OF INSTALLED MODS
+        else if action_id == "3" {
+            // PRINT LIST OF MODS
         }
         else {
-            println!("{} is not an action id (input either 1, 2, 3 or 0)", action_id);
+            println!("{} is not a valid action id (input either 1, 2, 3 or 0)", action_id);
         }
     }
+    
+    
+    
+    println!("Happy Automata (ATA will now close...)");
 }
 
 
@@ -250,7 +267,18 @@ fn main() {
 /*   SHOULD MOVE TO USER INTERACTION FILW WITH MISSING FILES WQARING   */
 /* ----- */
 
-fn ask_user_action(action_id: &mut String) {
+fn ask_for_mod_folder() -> Result<PathBuf, std::io::Error> {
+    println!("To install a mod type the path to the compressed folder of a mod you downloaded\n\
+        IT HAS TO BE A COMPRESSED FOLDER (.zip, .7z, .rar)");
+    print!("Insert path >> ");
+    stdout().flush()?;
+
+    let mut answer = String::new();
+    stdin().read_line(&mut answer)?;
+    Ok(PathBuf::from(answer.trim()))
+}
+
+fn ask_user_action() -> Result<String, std::io::Error> {
     // Asking what the user wants to do
     println!(
         "What do you want to do?\n
@@ -258,10 +286,13 @@ fn ask_user_action(action_id: &mut String) {
             \t2 - Uninstall a mod (you have to type the name of the mod)
             \t0 - Close the NAMHL"
     );
-    println!("\nInsert a number");
+    print!("\nInsert a number: ");
+    stdout().flush()?;
 
     // Getting the user's action's id
-    stdin().read_line(action_id).expect("Failed to read answer");
+    let mut answer = String::new();
+    stdin().read_line(&mut answer)?;
+    Ok(answer.trim().to_string())
 }
 
 fn save_mod_data(mod_data: Mod) -> Result<(), Box<dyn Error>> {

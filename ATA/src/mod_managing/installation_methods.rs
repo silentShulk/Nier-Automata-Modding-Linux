@@ -7,11 +7,7 @@ use std::fs::copy;
 use crate::*;
 
 pub fn install_texture(dss_folder_path: PathBuf, game_path: &PathBuf) -> Result<Mod, Box<dyn Error>> {
-    println!("Give a name to the mod being installed");
-    print!("Name: ");
-    stdout().flush()?;
-    let mut answer = String::new();
-    stdin().read_line(&mut answer)?;
+    let answer = ask_mod_name()?;
 
     let texture_mods_folder = game_path.join("/SK_Res/inject/textures");
 
@@ -25,14 +21,12 @@ pub fn install_texture(dss_folder_path: PathBuf, game_path: &PathBuf) -> Result<
         mod_files.push(entry_path);
     }
 
-    let installing_mod = Mod::new(
+    Ok(Mod::new(
         answer,
         mod_files,
         true,
         ModType::Textures,
-    );
-
-    Ok(installing_mod)
+    ))
 }
 
 pub fn install_player_model(dtt_dat_folder_path: PathBuf, game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Error>>  {
@@ -50,14 +44,12 @@ pub fn install_player_model(dtt_dat_folder_path: PathBuf, game_path: &PathBuf) -
         mod_files.push(entry_path);
     }
 
-    let installing_mod = Mod::new(
+    Ok(Mod::new(
         answer,
         mod_files,
         true,
         ModType::PlayerModels,
-    );
-
-    Ok(installing_mod)
+    ))
 }
 
 pub fn install_weapon_model(dtt_dat_folder_path: PathBuf, game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Error>> {
@@ -75,14 +67,12 @@ pub fn install_weapon_model(dtt_dat_folder_path: PathBuf, game_path: &PathBuf) -
         mod_files.push(entry_path);
     }
 
-    let installing_mod = Mod::new(
+    Ok(Mod::new(
         answer,
         mod_files,
         true,
         ModType::WeaponModels,
-    );
-
-    Ok(installing_mod)
+    ))
 }
 
 pub fn install_world_model(dtt_dat_folder_path: PathBuf, game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Error>> {
@@ -100,19 +90,17 @@ pub fn install_world_model(dtt_dat_folder_path: PathBuf, game_path: &PathBuf) ->
         mod_files.push(entry_path);
     }
 
-    let installing_mod = Mod::new(
+    Ok(Mod::new(
         answer,
         mod_files,
         true,
         ModType::WorldModels,
-    );
-
-    Ok(installing_mod)
+    ))
 }
 
 pub fn install_cutscene_replacements(usm_folder_path: PathBuf, game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Error>> {
     let answer = ask_mod_name()?;
-
+    
     let cutscene_mods_folder = game_path.join("/data/movie");
 
     let mut mod_files: Vec<PathBuf> = vec![];
@@ -125,14 +113,12 @@ pub fn install_cutscene_replacements(usm_folder_path: PathBuf, game_path: &PathB
         mod_files.push(entry_path);
     }
 
-    let installing_mod = Mod::new(
+    Ok(Mod::new(
         answer,
         mod_files,
         true,
         ModType::CutsceneReplacements,
-    );
-
-    Ok(installing_mod)
+    ))
 }
 
 pub fn install_reshade_preset(preset_folder_path: PathBuf, game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Error>> {
