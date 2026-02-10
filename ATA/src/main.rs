@@ -151,14 +151,14 @@ fn main() {
         else if action_id == "3" {
             list_mods(&current_config.mods);
         }
+        // EXIT THE PROGRAM
+        else if action_id == "0" {
+            println!("Happy Automata (ATA will now close...)");
+        }
         else {
             println!("\"{}\" is not a valid action id (input either 1, 2, 3 or 0)", action_id);
         }
     }
-    
-    
-    
-    println!("Happy Automata (ATA will now close...)");
 }
 
 
