@@ -1,9 +1,5 @@
 use std::error::Error;
 
-use std::io::{stdin, stdout, Write};
-
-use std::path::PathBuf;
-
 use clap::Parser;
 
 mod data_saving;
@@ -11,14 +7,18 @@ use data_saving::{Config, Mod};
 
 mod starting_checks;
 use starting_checks::{
-    check_path, ask_for_correct_gamepath, check_for_required_modding_files, missing_files_warning, run_auto_install_script
+    check_path, check_for_required_modding_files
+};
+
+mod user_interactions;
+use user_interactions::{
+    ask_for_correct_gamepath, missing_files_warning, run_auto_install_script, ask_user_action, ask_for_mod_folder
 };
 
 mod features;
 use features::{install_mod, uninstall_mod};
 
-mod installation_methods;
-
+mod installation_utilities_and_methods;
 
 
 
@@ -27,9 +27,9 @@ fn main() {
 
 
 
-    /* ------------------- */
-    /*   STARTING CHECKS   */
-    /* ------------------- */
+    /* ----------------------- */
+    /*   LOADING CONFIG DATA   */
+    /* ----------------------- */
 
     // LOAD DATA IF PRESENT
     println!("Loading data file (~/.config/ATA/data.json)");
@@ -38,13 +38,16 @@ fn main() {
     .unwrap_or_else(|err| {
         eprintln!("There was a problem accessing the data file (~/.config/ATA/data.json). {}\nConsider checking if the file is there and if it isn't corrupted.
                 ATA will now close...", err);
-        
         std::process::exit(1);
     });
     
     println!("Config file (~/.config/ATA/data.json) loaded!\n");
     
-    
+
+
+    /* ------------------- */
+    /*   STARTING CHECKS   */
+    /* ------------------- */
     
     // CHECKING GAME PATH LOCATION
     println!("Checking if the currently saved gamepath is the correct one (contains the game's files)");
@@ -55,7 +58,6 @@ fn main() {
         let is_gamepath = check_path(&current_config.game_path).unwrap_or_else(|er| {
             eprintln!("There has been a problem checking the given game path. {}
                     ATA will now close...", er);
-            
             std::process::exit(1);
         });
         
@@ -67,7 +69,6 @@ fn main() {
                 .unwrap_or_else(|er| {
                     eprintln!("There has been a problem trying to change the game path. {}
                             ATA will now close...", er);
-                    
                     std::process::exit(1);
                 });
         }
@@ -88,7 +89,6 @@ fn main() {
             .unwrap_or_else(|er| {
                 eprintln!("There has been a problem using the console to warn you about the missing required modding files. {}
                         ATA will now close...", er);
-                
                 std::process::exit(1);
             });
         
@@ -96,7 +96,6 @@ fn main() {
             run_auto_install_script().unwrap_or_else(|er| {
                 eprintln!("There has been a problem running the installation script for the required modding files. {}
                         ATA will now close...", er);
-                
                 std::process::exit(1);
             });
             
@@ -105,7 +104,6 @@ fn main() {
         else {
             eprint!("Cannot proceed further without the required modding files.
                     ATA will now close...");
-            
             std::process::exit(1);
         }
     } else {
@@ -114,16 +112,15 @@ fn main() {
     
     
     
-    /* -------------------- */
-    /*   USER INTERACTION   */
-    /* -------------------- */
+    /* -------------------------------- */
+    /*   STARTING ONE OF THE FEATURES   */
+    /* -------------------------------- */
 
     let mut action_id = String::from("");
     while action_id != "0" {
         action_id = ask_user_action().unwrap_or_else(|er| {
             eprintln!("There has been a problem using the console to ask you what you want to do. {}
                     ATA will now close...", er);
-            
             std::process::exit(1);
         });
 
@@ -132,7 +129,6 @@ fn main() {
             let answered_path = ask_for_mod_folder().unwrap_or_else(|er| {
                 eprintln!("There was a problem using the console for asking for the compressed mod folder. {}
                         ATA will now close...", er);
-
                 std::process::exit(1);
             });
 
@@ -174,33 +170,7 @@ fn main() {
 /*   SHOULD MOVE TO USER INTERACTION FILW WITH MISSING FILES WQARING   */
 /* ----- */
 
-fn ask_for_mod_folder() -> Result<PathBuf, std::io::Error> {
-    println!("To install a mod type the path to the compressed folder of a mod you downloaded\n\
-        IT HAS TO BE A COMPRESSED FOLDER (.zip, .7z, .rar)");
-    print!("Insert path >> ");
-    stdout().flush()?;
 
-    let mut answer = String::new();
-    stdin().read_line(&mut answer)?;
-    Ok(PathBuf::from(answer.trim()))
-}
-
-fn ask_user_action() -> Result<String, std::io::Error> {
-    // Asking what the user wants to do
-    println!(
-        "What do you want to do?\n
-            \t1 - Install a mod (you have to provide a zip folder of the mod)
-            \t2 - Uninstall a mod (you have to type the name of the mod)
-            \t0 - Close the NAMHL"
-    );
-    print!("\nInsert a number: ");
-    stdout().flush()?;
-
-    // Getting the user's action's id
-    let mut answer = String::new();
-    stdin().read_line(&mut answer)?;
-    Ok(answer.trim().to_string())
-}
 
 fn save_mod_data(mod_data: Mod) -> Result<(), Box<dyn Error>> {
 	Ok(())

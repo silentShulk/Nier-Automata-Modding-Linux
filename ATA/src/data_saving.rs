@@ -26,10 +26,10 @@ pub enum ModType {
 // Things to take note about a mod for both mod managing and informing the user
 #[derive(Serialize, Deserialize)]
 pub struct Mod {
-    name: String,
-    files: Vec<PathBuf>,
-    enabled: bool,
-    mod_type: ModType,
+    name: String,           // Name of the mod given by the user
+    files: Vec<PathBuf>,    // Files used by the mod (not the folder contaning, list of all files one by one)
+    enabled: bool,          // Whether the mod is enabled or not
+    mod_type: ModType,      // Type of the mod 
 }
 impl Mod {
     pub fn new(name: String, files: Vec<PathBuf>, enabled: bool, mod_type: ModType) -> Self {
@@ -79,6 +79,7 @@ impl Config {
         }   
     }
 
+    // creates a default config and saves it to the file
     fn create_default_config_file(path: PathBuf) -> Result<Self, Box<dyn Error>> {
         let default_config = Self::default();
         
@@ -95,6 +96,9 @@ impl Config {
     }
 }
 impl Default for Config {
+    // Creates default config
+    // Default game_path = $HOME(or /home/2B/)/.local/share/Steam/steamapps/common/NieRAutomata
+    // Default mods = empty list
     fn default() -> Self {
         let home_dir = var("HOME").unwrap_or(String::from("/home/2B/"));
         let default_game_path = PathBuf::from(home_dir)

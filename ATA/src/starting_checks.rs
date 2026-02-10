@@ -1,17 +1,8 @@
 use std::fs::read_dir;
-use std::io::Write;
-use std::io::{stdin, stdout};
+
 use std::path::PathBuf;
-use std::process::Command;
-use std::error::Error;
-use std::process::ExitStatus;
-use std::env::var;
-//use clap::{Arg, ArgAction}; // Will be used to add arguments
 
 
-/* ---------- */
-/*   CHECKS   */
-/* ---------- */
 
 // CHECK IF GIVEN PATH CONTAINS GAME FILES
 pub fn check_path(current_path: &PathBuf) -> Result<bool, std::io::Error> {
@@ -30,17 +21,7 @@ pub fn check_path(current_path: &PathBuf) -> Result<bool, std::io::Error> {
     Ok(is_gamepath)
 }
 
-// CHECKING GAME PATH LOCATION
-pub fn ask_for_correct_gamepath() -> Result<PathBuf, std::io::Error> {
-    println!("Insert the correct path to the game's executable");
-    print!("Correct path: ");
-    stdout().flush()?;
 
-    let mut new_path = String::new();
-    stdin().read_line(&mut new_path)?;
-
-    Ok(PathBuf::from(new_path.trim()))
-}
 
 // CHECKING IF REQUIRED MODDING FILES ARE ALREADY PRESENT
 pub fn check_for_required_modding_files(game_path: &PathBuf) -> Vec<PathBuf> {
@@ -56,38 +37,4 @@ pub fn check_for_required_modding_files(game_path: &PathBuf) -> Vec<PathBuf> {
         .collect();
     
     missing_files
-}
-
-// IF MODDING FILES AREN'T PRESENT, WARN THE USER
-pub fn missing_files_warning(missing_files: Vec<PathBuf>) -> Result<bool, std::io::Error> {
-	for missing_file in missing_files {
-		println!("{:?} is missing", missing_file)
-	}
-    println!("You need to install the file(s) if you want to mod the game");
-    
-    print!("Start installation of required modding files? [Y/n] ");
-    stdout().flush()?;
-
-    let mut answer = String::new();
-    stdin().read_line(&mut answer)?;
-    let answer = answer.trim();
-    
-    Ok(answer.is_empty() || answer.eq_ignore_ascii_case("y"))
-}
-
-// IF THE USER WANTS TO, INSTALL THE FILES
-pub fn run_auto_install_script() -> Result<ExitStatus, Box<dyn Error>> {
-    let home_dir = var("HOME").unwrap_or(String::from("/home/2B/"));
-    let script_path = PathBuf::from(format!("{}/.local/share/ATA/install-prerequisites.sh", home_dir));
-
-    let status = Command::new("xdg-terminal-exec")
-        .arg("-e")
-        .arg("bash")
-        .arg(&script_path)
-        .status();
-
-    match status {
-        Ok(exit_status) => Ok(exit_status),
-        Err(er) => Err(Box::new(er))
-    }
 }
