@@ -55,4 +55,8 @@ pub fn uninstall_mod(game_path: &PathBuf) -> Result<Mod, Box<dyn std::error::Err
 
 
 
+pub fn list_mods(mods: &Vec<Mod>) {
+    println!("Not implemented yet, pls do not kill me")
+}
+
 

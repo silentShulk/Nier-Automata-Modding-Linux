@@ -46,7 +46,7 @@ impl Mod {
 #[derive(Serialize, Deserialize)]
 pub struct Config {
     pub game_path: PathBuf,
-    mods: Vec<Mod>,
+    pub mods: Vec<Mod>,
 }
 impl Config {
     // Save the config to file

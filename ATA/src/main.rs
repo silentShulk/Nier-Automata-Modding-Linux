@@ -16,7 +16,7 @@ use user_interactions::{
 };
 
 mod features;
-use features::{install_mod, uninstall_mod};
+use features::{install_mod, uninstall_mod, list_mods};
 
 mod installation_utilities_and_methods;
 
@@ -105,7 +105,7 @@ fn main() {
             eprint!("Cannot proceed further without the required modding files.
                     ATA will now close...");
             std::process::exit(1);
-        }
+}
     } else {
         println!("Required modding files already installed")
     }
@@ -149,10 +149,10 @@ fn main() {
         } 
         // PRINT THE LIST OF INSTALLED MODS
         else if action_id == "3" {
-            // PRINT LIST OF MODS
+            list_mods(&current_config.mods);
         }
         else {
-            println!("{} is not a valid action id (input either 1, 2, 3 or 0)", action_id);
+            println!("\"{}\" is not a valid action id (input either 1, 2, 3 or 0)", action_id);
         }
     }
     

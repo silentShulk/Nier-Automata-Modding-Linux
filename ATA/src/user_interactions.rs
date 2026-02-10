@@ -62,7 +62,8 @@ pub fn ask_user_action() -> Result<String, std::io::Error> {
         "What do you want to do?\n
             \t1 - Install a mod (you have to provide a zip folder of the mod)
             \t2 - Uninstall a mod (you have to type the name of the mod)
-            \t0 - Close the NAMHL"
+            \t3 - List all mods
+            \t0 - Close ATA"
     );
     print!("\nInsert a number: ");
     stdout().flush()?;
