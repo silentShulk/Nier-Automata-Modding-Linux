@@ -2,6 +2,8 @@ use std::error::Error;
 
 use clap::Parser;
 
+use clearscreen::clear;
+
 mod data_saving;
 use data_saving::{Config, Mod};
 
@@ -111,6 +113,12 @@ fn main() {
     }
     
     
+    
+    clearscreen::clear().unwrap_or_else(|er| {
+        println!("There has been a problem trying to clear the terminal screeen. {}
+                ATA will now close...", er);
+        std::process::exit(1);
+    });
     
     /* -------------------------------- */
     /*   STARTING ONE OF THE FEATURES   */
