@@ -1,10 +1,16 @@
-use std::fs::read_dir;
-use std::path::PathBuf;
-use std::io::{Write, stdin, stdout};
 use std::error::Error;
-use std::fs::copy;
 
-use crate::*;
+use std::fs::{copy, read_dir};
+
+use std::io::{stdin, stdout, Write};
+
+use std::path::PathBuf;
+
+use crate::data_saving::{Mod, ModType};
+
+
+
+
 
 pub fn install_texture(dss_folder_path: PathBuf, game_path: &PathBuf) -> Result<Mod, Box<dyn Error>> {
     let answer = ask_mod_name()?;

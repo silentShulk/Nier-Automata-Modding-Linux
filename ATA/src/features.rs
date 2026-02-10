@@ -1,13 +1,18 @@
-use std::{self, io::Write};
-use std::fs::File;
-use std::path::{Path, PathBuf};
 use std::error::Error;
-use zip::ZipArchive;
-use std::io::{stdin, stdout};
+
+use std::fs::File;
+
+use std::path::{Path, PathBuf};
+
 use walkdir::WalkDir;
 
-use super::installation_methods::*;
-use crate::*;
+use zip::ZipArchive;
+
+use crate::data_saving::{Mod, ModType};
+
+use crate::installation_methods::{
+    install_cutscene_replacements, install_player_model, install_reshade_preset, install_texture, install_weapon_model, install_world_model,
+};
 
 
 
