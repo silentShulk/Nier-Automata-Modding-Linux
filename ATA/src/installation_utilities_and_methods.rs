@@ -18,6 +18,16 @@ use crate::data_saving::{Mod, ModType};
 /*   UTILITIES   */
 /* ------------- */
 
+#[derive(Error)]
+enum InstallationError {
+    FileAcessingError(String),
+    ExtensionReadingError,
+    FilenameReadingError,
+    FolderDecompressionError,
+    ConsoleAccessingError,
+    CopyingFilesError
+}
+
 pub fn check_mod_type(mod_folder_path: &mut PathBuf) -> Result<Option<(ModType, PathBuf)>, Box<dyn Error>> {
     // Define variables that will be returned
     let mut mod_files_path: Option<PathBuf> = None;
@@ -74,30 +84,20 @@ pub fn check_mod_type(mod_folder_path: &mut PathBuf) -> Result<Option<(ModType, 
     Ok(mod_contained.zip(mod_files_path))
 }
     
-pub fn unzip_folder(zipped_mod_folder: &PathBuf) -> Result<PathBuf, Box<dyn Error>> {
+pub fn decompress_folder(zipped_mod_folder: &PathBuf) -> Result<PathBuf, Box<dyn Error>> {
     let mod_file = File::open(zipped_mod_folder)?;
-    
-    match get_file_extension(zipped_mod_folder) {
-        Ok(extension) => {
-            if extension == "zip" {
 
-            }
-        }
-        Err(er) => ()
-    }
-
-    
+    Ok(PathBuf::new())
 }
 
-fn decompress_zip(zip_file: File, zip_file_path: PathBuf) -> Result<PathBuf, Box<dyn Error>> {
-    let mut mod_zip_archive = ZipArchive::new(zip_file)?;
-    let extraction_target_folder = zip_file_path
-    	.parent()
-     	.ok_or("Cannot find parent directory")?;
-    
-    mod_zip_archive.extract(&extraction_target_folder)?;
-    
-    
+fn decompress_zip() {
+
+}
+fn decompress_7z() {
+
+}
+fn decompress_rar() {
+
 }
 
 fn get_file_extension(path: &Path) -> Result<&str, String> {

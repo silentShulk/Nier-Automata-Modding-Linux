@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use crate::data_saving::{Mod, ModType};
 
 use crate::installation_utilities_and_methods::{
-    check_mod_type, unzip_folder,
+    check_mod_type, decompress_folder,
 };
 use crate::installation_utilities_and_methods::{
     install_cutscene_replacements, install_player_model, install_reshade_preset, install_texture, install_weapon_model, install_world_model,
@@ -24,7 +24,7 @@ pub fn install_mod(game_path: &PathBuf, compressed_mod_folder_path: PathBuf) -> 
     }
     
     // Unzip the mod folder
-    let mut mod_folder_path = unzip_folder(&compressed_mod_folder_path)?;
+    let mut mod_folder_path = decompress_folder(&compressed_mod_folder_path)?;
     
     // Get the type of mod containd
     let mod_data = check_mod_type(&mut mod_folder_path)?
