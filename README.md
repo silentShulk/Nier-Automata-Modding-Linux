@@ -6,6 +6,7 @@ This is a tutorial and script utility for modding NieR: Automata on Linux.
 | ------------ | ---------- | ------------------- |
 | Arch         | ✅ Working | Proton Experimental |
 | Fedora       | ✅ Working | Proton Experimental |
+| Gentoo       | ✅ Working | Proton Experimental |
 
 > ⚠️ The methods and scripts in this repository may still work for other distros.
 > If you find that it works for your distribution then please update the `README.md`
